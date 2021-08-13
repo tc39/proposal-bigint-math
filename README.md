@@ -64,6 +64,16 @@ Functions that take multiple numeric arguments, like `Math.max`,
 must be given all Number arguments
 or all BigInt arguments or else they will throw a TypeError.
 
+## Design choices
+
+| Dilemma | Choice
+| ------- | ------
+Should we extend `round`, `floor`, etc. take BigInts? | No, but this could change.
+Are there any real-use cases for hyperbolic/root/logarithm functions on BigInts? | We don’t yet know, but we’re extending them anyway.
+If we do extend hyperbolic/root/logarithm functions to accept BigInts, then should they return BigInts, and if so, how should they be rounded from their irrational mathematical values? | Yes, they should return implementation-approximated BigInts.
+Should trigonometric functions, which generally have small domains and ranges, return Numbers when given BigInts? | No, and because of this we are currently not extending the trigonometric functions to accept BigInts.
+What should the variadic `Math.hypot`, `max`, and `min` return when given no BigInt arguments? | We make new `big` versions of each of them, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError.
+
 ## Real-world examples
 Only minor formatting changes have been made to the status-quo examples.
 
