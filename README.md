@@ -24,7 +24,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.abs`
 * `Math.acosh`
 * `Math.asinh`
-* `Math.atanh`
 * `Math.ceil`
 * `Math.clz32`
 * `Math.cosh`
@@ -44,7 +43,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.sign`
 * `Math.sinh`
 * `Math.sqrt`
-* `Math.tanh`
 * `Math.trunc`
 
 In addition, the following new methods are added
@@ -67,10 +65,12 @@ are excluded from this proposal. These include:
 |`asin`         | Mathematical domain is between −1 and +1
 |`atan`         | Mathematical range is between −π/2 and +π/2
 |`atan2`        | Mathematical range is between −π/2 and +π/2
+|`atanh`        | Mathematical domain is between −1 and +1
 |`cos`          | Mathematical range is between −1 and +1
 |`fround`       | Returns floating-point numbers by definition
 |`random`       | No conceptual analogue
 |`sin`          | Mathematical range is between −1 and +1
+|`tanh`         | Mathematical range is between −1 and +1
 
 For instance, because cosines range between −1 and +1,
 `Math.cos` cannot return useful BigInt values
@@ -91,7 +91,8 @@ return BigInts (never regular Numbers) or throw TypeErrors.
 | ------- | ------
 Should we extend `round`, `floor`, `ceil`, and `trunc` to take BigInts? | Yes: they are just identity functions.
 Are there any real-use cases for applying irrational-returning functions like `sqrt` to BigInts? | We don’t yet know, but we’re extending them anyway.
-Should those irrational-returning functions return BigInts? | Yes, we **must** continue to avoid implicit conversions.
+Should those irrational-returning functions return BigInts? | Yes, we must continue to avoid implicit conversions.
 How should their irrational results be rounded? | They should return implementation-approximated BigInts.
-Should trigonometric functions, which generally have small domains and ranges, return Numbers when given BigInts? | No, and because of this we are currently not extending the trigonometric functions to accept BigInts – with the exception of `tan`, whose mathematical domain and range are all real numbers.
+Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return BigInts when given BigInts? | No, returning only one of three values (`-1n`, `0n`, or `+1n`) is not useful for trigonometric functions.
+Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return Numbers when given BigInts? | No, we must continue to avoid implicit conversions. Because of this, we are not extending these functions to accept BigInts.
 What should the variadic `Math.hypot`, `max`, and `min` return when given no BigInt arguments? | We have made new `big` versions of each of these functions, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError. We do this to avoid unexpected returning of Numbers instead of BigInts – for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n` whenever `arrayOfBigInts` happens to be empty.
