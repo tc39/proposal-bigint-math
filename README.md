@@ -68,8 +68,9 @@ are excluded from this proposal. These include:
 |`atanh`        | Mathematical domain is between −1 and +1
 |`cos`          | Mathematical range is between −1 and +1
 |`fround`       | Returns floating-point numbers by definition
-|`random`       | No conceptual analogue
+|`random`       | No conceptual integer-only analogue
 |`sin`          | Mathematical range is between −1 and +1
+|`tan`          | Periodic asymptotes for each π multiple
 |`tanh`         | Mathematical range is between −1 and +1
 
 For instance, because cosines range between −1 and +1,
@@ -89,10 +90,11 @@ return BigInts (never regular Numbers) or throw TypeErrors.
 
 | Dilemma | Choice
 | ------- | ------
-Should we extend `round`, `floor`, `ceil`, and `trunc` to take BigInts? | Yes: they are just identity functions.
-Are there any real-use cases for applying irrational-returning functions like `sqrt` to BigInts? | We don’t yet know, but we’re extending them anyway.
-Should those irrational-returning functions return BigInts? | Yes, we must continue to avoid implicit conversions.
-How should their irrational results be rounded? | They should return implementation-approximated BigInts.
-Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return BigInts when given BigInts? | No, returning only one of three values (`-1n`, `0n`, or `+1n`) is not useful for trigonometric functions.
-Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return Numbers when given BigInts? | No, we must continue to avoid implicit conversions. Because of this, we are not extending these functions to accept BigInts.
-What should the variadic `Math.hypot`, `max`, and `min` return when given no BigInt arguments? | We have made new `big` versions of each of these functions, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError. We do this to avoid unexpected returning of Numbers instead of BigInts – for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n` whenever `arrayOfBigInts` happens to be empty.
+| Should we extend `round`, `floor`, `ceil`, and `trunc` to take BigInts? | Yes: they are just identity functions.
+| Are there any real-use cases for applying irrational-returning functions like `sqrt` to BigInts? | We do not yet know, but we’re extending them anyway.
+| Should those irrational-returning functions return BigInts? | Yes, we must continue to avoid implicit conversions.
+| How should their irrational results be rounded? | They should return implementation-approximated BigInts.
+| Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return BigInts when given BigInts? | No, returning only one of three values (`-1n`, `0n`, or `+1n`) is not useful for trigonometric functions.
+| Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return Numbers when given BigInts? | No, we must continue to avoid implicit conversions. Because of this, we are not extending these functions to accept BigInts.
+| Should we extend `tan` to accept and return BigInts? | No: `tan` has periodic asymptotes, for each multiple of π, and every BigInt input would have essentially random rounded `tan` values, depending on how close they are to a π multiple. This is in contrast to non-periodic functions like `log` and `sqrt`, which are still useful even when constrained to integer inputs.
+| What should `hypot`, `max`, and `min` return when given no BigInt arguments? | We have made new `big` versions of each of these variadic functions, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError. We do this to avoid unexpected returning of Numbers instead of BigInts – for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n` whenever `arrayOfBigInts` happens to be empty.
