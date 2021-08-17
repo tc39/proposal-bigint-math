@@ -127,6 +127,20 @@ contributors: J. S. Choi
 
           <tr>
             <td>
+              <ins>_T_::ceil(x)</ins>
+            </td>
+            <td>
+              <ins>`Math.ceil(x)`</ins>
+            </td>
+            <td><ins><emu-xref href="#sec-math.ceil" title></emu-xref></ins>
+            </td>
+            <td>
+              <ins>_T_</ins>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
               <ins>_T_::cosh(x)</ins>
             </td>
             <td>
@@ -175,6 +189,20 @@ contributors: J. S. Choi
               <ins>`Math.expm1(x)`</ins>
             </td>
             <td><ins><emu-xref href="#sec-math.expm1" title></emu-xref></ins>
+            </td>
+            <td>
+              <ins>_T_</ins>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <ins>_T_::floor(x)</ins>
+            </td>
+            <td>
+              <ins>`Math.floor(x)`</ins>
+            </td>
+            <td><ins><emu-xref href="#sec-math.floor" title></emu-xref></ins>
             </td>
             <td>
               <ins>_T_</ins>
@@ -281,6 +309,20 @@ contributors: J. S. Choi
 
           <tr>
             <td>
+              <ins>_T_::round(x)</ins>
+            </td>
+            <td>
+              <ins>`Math.round(x)`</ins>
+            </td>
+            <td><ins><emu-xref href="#sec-math.round" title></emu-xref></ins>
+            </td>
+            <td>
+              <ins>_T_</ins>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
               <ins>_T_::sign(x)</ins>
             </td>
             <td>
@@ -334,6 +376,21 @@ contributors: J. S. Choi
               <ins>_T_</ins>
             </td>
           </tr>
+
+          <tr>
+            <td>
+              <ins>_T_::trunc(x)</ins>
+            </td>
+            <td>
+              <ins>`Math.trunc(x)`</ins>
+            </td>
+            <td><ins><emu-xref href="#sec-math.trunc" title></emu-xref></ins>
+            </td>
+            <td>
+              <ins>_T_</ins>
+            </td>
+          </tr>
+
 
           <tr>
             <td>
@@ -422,6 +479,25 @@ contributors: J. S. Choi
             </emu-alg>
           </emu-clause>
 
+          <emu-clause id="sec-numeric-types-number-ceil" type="numeric method">
+            <h1>
+              Number::ceil (
+                _x_: a Number,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. If _x_ is *NaN*, _x_ is *+0*<sub>𝔽</sub>, _x_ is *-0*<sub>𝔽</sub>, _x_ is *+&infin;*<sub>𝔽</sub>, or _x_ is *-&infin;*<sub>𝔽</sub>, return _x_.
+              1. If _x_ &lt; *+0*<sub>𝔽</sub> and _x_ &gt; *-1*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+              1. If _x_ is an integral Number, return _x_.
+              1. Return the smallest (closest to -&infin;) integral Number value that is not less than _x_.
+            </emu-alg>
+            <emu-note>
+              <p>The value of `Math.ceil(x)` is the same as the value of `-Math.floor(-x)`.</p>
+            </emu-note>
+          </emu-clause>
+
           <emu-clause id="sec-numeric-types-number-cosh" type="numeric method">
             <h1>
               Number::cosh (
@@ -484,6 +560,25 @@ contributors: J. S. Choi
               1. If _x_ is *-&infin;*<sub>𝔽</sub>, return *-1*<sub>𝔽</sub>.
               1. Return an implementation-approximated value representing the result of subtracting 1 from the exponential function of ℝ(_x_).
             </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-number-floor" type="numeric method">
+            <h1>
+              Number::floor (
+                _x_: a Number,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. If _x_ is *NaN*, _x_ is *+0*<sub>𝔽</sub>, _x_ is *-0*<sub>𝔽</sub>, _x_ is *+&infin;*<sub>𝔽</sub>, or _x_ is *-&infin;*<sub>𝔽</sub>, return _x_.
+              1. If _x_ &lt; *1*<sub>𝔽</sub> and _x_ &gt; *+0*<sub>𝔽</sub>, return *+0*<sub>𝔽</sub>.
+              1. If _x_ is an integral Number, return _x_.
+              1. Return the greatest (closest to +&infin;) integral Number value that is not greater than _x_.
+            </emu-alg>
+            <emu-note>
+              <p>The value of `Math.floor(x)` is the same as the value of `-Math.ceil(-x)`.</p>
+            </emu-note>
           </emu-clause>
 
           <emu-clause id="sec-numeric-types-number-log" type="numeric method">
@@ -553,6 +648,28 @@ contributors: J. S. Choi
             </emu-alg>
           </emu-clause>
 
+          <emu-clause id="sec-numeric-types-number-round" type="numeric method">
+            <h1>
+              Number::round (
+                _x_: a Number,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. If _x_ is *NaN*, *+&infin;*<sub>𝔽</sub>, *-&infin;*<sub>𝔽</sub>, or an integral Number, return _x_.
+              1. If _x_ &lt; *0.5*<sub>𝔽</sub> and _x_ &gt; *+0*<sub>𝔽</sub>, return *+0*<sub>𝔽</sub>.
+              1. If _x_ &lt; *+0*<sub>𝔽</sub> and _x_ &ge; *-0.5*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+              1. Return the integral Number closest to _x_, preferring the Number closer to +&infin; in the case of a tie.
+            </emu-alg>
+            <emu-note>
+              <p>`Math.round(3.5)` returns 4, but `Math.round(-3.5)` returns -3.</p>
+            </emu-note>
+            <emu-note>
+              <p>When `x` is a Number, the value of `Math.round(x)` is not always the same as the value of `Math.floor(x + 0.5)`. When `x` is *-0*<sub>𝔽</sub> or is less than *+0*<sub>𝔽</sub> but greater than or equal to *-0.5*<sub>𝔽</sub>, `Math.round(x)` returns *-0*<sub>𝔽</sub>, but `Math.floor(x + 0.5)` returns *+0*<sub>𝔽</sub>. `Math.round(x)` may also differ from the value of `Math.floor(x + 0.5)`because of internal rounding when computing `x + 0.5`.</p>
+            </emu-note>
+          </emu-clause>
+
           <emu-clause id="sec-numeric-types-number-sinh" type="numeric method">
             <h1>
               Number::sinh (
@@ -599,6 +716,22 @@ contributors: J. S. Choi
               1. If _x_ is *+&infin;*<sub>𝔽</sub>, return *1*<sub>𝔽</sub>.
               1. If _x_ is *-&infin;*<sub>𝔽</sub>, return *-1*<sub>𝔽</sub>.
               1. Return an implementation-approximated value representing the result of the hyperbolic tangent of ℝ(_x_).
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-number-trunc" type="numeric method">
+            <h1>
+              Number::trunc (
+                _x_: a Number,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. If _x_ is *NaN*, _x_ is *+0*<sub>𝔽</sub>, _x_ is *-0*<sub>𝔽</sub>, _x_ is *+&infin;*<sub>𝔽</sub>, or _x_ is *-&infin;*<sub>𝔽</sub>, return _x_.
+              1. If _x_ &lt; *1*<sub>𝔽</sub> and _x_ &gt; *+0*<sub>𝔽</sub>, return *+0*<sub>𝔽</sub>.
+              1. If _x_ &lt; *+0*<sub>𝔽</sub> and _x_ &gt; *-1*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+              1. Return the integral Number nearest _x_ in the direction of *+0*<sub>𝔽</sub>.
             </emu-alg>
           </emu-clause>
         </ins>
@@ -690,6 +823,19 @@ contributors: J. S. Choi
             </emu-alg>
           </emu-clause>
 
+          <emu-clause id="sec-numeric-types-bigint-ceil" type="numeric method">
+            <h1>
+              BigInt::ceil (
+                _x_: a BigInt,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Return _x_.
+            </emu-alg>
+          </emu-clause>
+
           <emu-clause id="sec-numeric-types-bigint-exp" type="numeric method">
             <h1>
               BigInt::exp (
@@ -713,6 +859,19 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return an implementation-approximated BigInt value representing the result of subtracting 1 from the exponential function of ℝ(_x_).
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-bigint-floor" type="numeric method">
+            <h1>
+              BigInt::floor (
+                _x_: a BigInt,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Return _x_.
             </emu-alg>
           </emu-clause>
 
@@ -765,6 +924,19 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return an implementation-approximated BigInt value representing the result of the base 2 logarithm of ℝ(_x_).
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-bigint-round" type="numeric method">
+            <h1>
+              BigInt::round (
+                _x_: a BigInt,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Return _x_.
             </emu-alg>
           </emu-clause>
 
@@ -823,6 +995,19 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return an implementation-approximated BigInt value representing the result of the hyperbolic tangent of ℝ(_x_).
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-bigint-trunc" type="numeric method">
+            <h1>
+              BigInt::trunc (
+                _x_: a BigInt,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Return _x_.
             </emu-alg>
           </emu-clause>
         </ins>
@@ -1024,6 +1209,31 @@ contributors: J. S. Choi
         </ins>
       </emu-clause>
 
+      <emu-clause id="sec-math.ceil">
+        <h1>Math.ceil ( _x_ )</h1>
+        <p>Returns the <del>smallest (closest to -&infin;) integral Number value</del><ins>lowest numeric value of the same type as _x_</ins> that is not less than _x_<ins> and whose mathematical value is an integer</ins>. If _x_ is already an integral Number <ins>or a BigInt</ins>, the result is _x_.</p>
+        <p>When the `Math.ceil` method is called with argument _x_, the following steps are taken:</p>
+        <del class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumber(_x_).
+          1. If _n_ is *NaN*, _n_ is *+0*<sub>𝔽</sub>, _n_ is *-0*<sub>𝔽</sub>, _n_ is *+&infin;*<sub>𝔽</sub>, or _n_ is *-&infin;*<sub>𝔽</sub>, return _n_.
+          1. If _n_ &lt; *+0*<sub>𝔽</sub> and _n_ &gt; *-1*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+          1. If _n_ is an integral Number, return _n_.
+          1. Return the smallest (closest to -&infin;) integral Number value that is not less than _n_.
+        </emu-alg>
+        </del>
+        <ins class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumeric(_x_).
+          1. Let _T_ be Type(_n_).
+          1. Return _T_::ceil(_n_).
+        </emu-alg>
+        </ins>
+        <emu-note>
+          <p>The value of `Math.ceil(x)` is the same as the value of `-Math.floor(-x)`.</p>
+        </emu-note>
+      </emu-clause>
+
       <emu-clause id="sec-math.cosh">
         <h1>Math.cosh ( _x_ )</h1>
         <p>Returns the hyperbolic cosine of _x_.</p>
@@ -1089,6 +1299,31 @@ contributors: J. S. Choi
           1. Return _T_::expm1(_n_).
         </emu-alg>
         </ins>
+      </emu-clause>
+
+      <emu-clause id="sec-math.floor">
+        <h1>Math.floor ( _x_ )</h1>
+        <p>Returns the <del>greatest (closest to +&infin;) integral Number value</del><ins>lowest numeric value of the same type as _x_</ins> that is not greater than _x_<ins> and whose mathematical value is an integer</ins>. If _x_ is already an integral Number <ins>or a BigInt</ins>, the result is _x_.</p>
+        <p>When the `Math.floor` method is called with argument _x_, the following steps are taken:</p>
+        <del class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumber(_x_).
+          1. If _n_ is *NaN*, _n_ is *+0*<sub>𝔽</sub>, _n_ is *-0*<sub>𝔽</sub>, _n_ is *+&infin;*<sub>𝔽</sub>, or _n_ is *-&infin;*<sub>𝔽</sub>, return _n_.
+          1. If _n_ &lt; *+0*<sub>𝔽</sub> and _n_ &gt; *-1*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+          1. If _n_ is an integral Number, return _n_.
+          1. Return the greatest (closest to +&infin;) integral Number value that is not less than _n_.
+        </emu-alg>
+        </del>
+        <ins class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumeric(_x_).
+          1. Let _T_ be Type(_n_).
+          1. Return _T_::floor(_n_).
+        </emu-alg>
+        </ins>
+        <emu-note>
+          <p>The value of `Math.floor(x)` is the same as the value of `-Math.ceil(-x)`.</p>
+        </emu-note>
       </emu-clause>
 
       <emu-clause id="sec-math.log">
@@ -1203,6 +1438,34 @@ contributors: J. S. Choi
         </ins>
       </emu-clause>
 
+      <emu-clause id="sec-math.round">
+        <h1>Math.round ( _x_ )</h1>
+        <p>Returns the <del>Number value</del><ins>numeric value with the same type as _x_</ins> that is closest to _x_ and <del>is integral</del><ins>whose mathematical value is an integer</ins>. If <ins>_x_ is a Number and </ins>two integral Numbers are equally close to _x_, then the result is the Number value that is closer to +&infin;. If _x_ is already an integral Number <ins>or a BigInt</ins>, the result is _x_.</p>
+        <p>When the `Math.round` method is called with argument _x_, the following steps are taken:</p>
+        <del class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumber(_x_).
+          1. If _n_ is *NaN*, *+&infin;*<sub>𝔽</sub>, *-&infin;*<sub>𝔽</sub>, or an integral Number, return _n_.
+          1. If _n_ &lt; *0.5*<sub>𝔽</sub> and _n_ &gt; *+0*<sub>𝔽</sub>, return *+0*<sub>𝔽</sub>.
+          1. If _n_ &lt; *+0*<sub>𝔽</sub> and _n_ &ge; *-0.5*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+          1. Return the integral Number closest to _n_, preferring the Number closer to +&infin; in the case of a tie.
+        </emu-alg>
+        </del>
+        <ins class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumeric(_x_).
+          1. Let _T_ be Type(_n_).
+          1. Return _T_::round(_n_).
+        </emu-alg>
+        </ins>
+        <emu-note>
+          <p>`Math.round(3.5)` returns 4, but `Math.round(-3.5)` returns -3.</p>
+        </emu-note>
+        <emu-note>
+          <p><ins>When `x` is a Number, t</ins><del>T</del>he value of `Math.round(x)` is not always the same as the value of `Math.floor(x + 0.5)`. When `x` is *-0*<sub>𝔽</sub> or is less than *+0*<sub>𝔽</sub> but greater than or equal to *-0.5*<sub>𝔽</sub>, `Math.round(x)` returns *-0*<sub>𝔽</sub>, but `Math.floor(x + 0.5)` returns *+0*<sub>𝔽</sub>. `Math.round(x)` may also differ from the value of `Math.floor(x + 0.5)`because of internal rounding when computing `x + 0.5`.</p>
+        </emu-note>
+      </emu-clause>
+
       <emu-clause id="sec-math.sign">
         <h1>Math.sign ( _x_ )</h1>
         <p>Returns the sign of _x_, indicating whether _x_ is positive, negative, or zero.</p>
@@ -1291,6 +1554,29 @@ contributors: J. S. Choi
         <emu-note>
           <p>The value of `Math.tanh(x)` is the same as the value of `(Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x))`.</p>
         </emu-note>
+      </emu-clause>
+
+      <emu-clause id="sec-math.trunc">
+        <h1>Math.trunc ( _x_ )</h1>
+        <p>Returns the <del>Number value</del><ins>numeric value with the same type as _x_</ins> that is closest to _x_ and <del>is integral</del><ins>whose mathematical value is an integer</ins>. If <ins>_x_ is a Number and </ins>two integral Numbers are equally close to _x_, then the result is the Number value that is closer to +&infin;. If _x_ is already an integral Number <ins>or a BigInt</ins>, the result is _x_.</p>
+        <p>Returns the integral part of the <del>number</del><ins>numeric value</ins> _x_, removing any fractional digits. If _x_ is already <ins>an </ins>integral<ins> Number or a BigInt</ins>, the result is _x_.</p>
+        <p>When the `Math.trunc` method is called with argument _x_, the following steps are taken:</p>
+        <del class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumber(_x_).
+          1. If _n_ is *NaN*, _n_ is *+0*<sub>𝔽</sub>, _n_ is *-0*<sub>𝔽</sub>, _n_ is *+&infin;*<sub>𝔽</sub>, or _n_ is *-&infin;*<sub>𝔽</sub>, return _n_.
+          1. If _n_ &lt; *1*<sub>𝔽</sub> and _n_ &gt; *+0*<sub>𝔽</sub>, return *+0*<sub>𝔽</sub>.
+          1. If _n_ &lt; *+0*<sub>𝔽</sub> and _n_ &gt; *-1*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+          1. Return the integral Number nearest _n_ in the direction of *+0*<sub>𝔽</sub>.
+        </emu-alg>
+        </del>
+        <ins class="block">
+        <emu-alg>
+          1. Let _n_ be ? ToNumeric(_x_).
+          1. Let _T_ be Type(_n_).
+          1. Return _T_::trunc(_n_).
+        </emu-alg>
+        </ins>
       </emu-clause>
     </emu-clause>
   </emu-clause>
