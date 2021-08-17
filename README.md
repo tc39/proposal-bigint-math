@@ -17,7 +17,7 @@ since their standardization in ES 2021.
 
 Several built-in `Math` functions
 would make sense with BigInts,
-yet still do not support them;
+yet they still do not support them;
 they only support regular floating-point JavaScript Numbers.
 This proposal extends those functions’ behavior to accept BigInts:
 
@@ -25,7 +25,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.acosh`
 * `Math.asinh`
 * `Math.ceil`
-* `Math.clz32`
 * `Math.cosh`
 * `Math.cbrt`
 * `Math.exp`
@@ -66,8 +65,10 @@ are excluded from this proposal. These include:
 |`atan`         | Mathematical range is between −π/2 and +π/2
 |`atan2`        | Mathematical range is between −π/2 and +π/2
 |`atanh`        | Mathematical domain is between −1 and +1
+|`clz32`        | ???
 |`cos`          | Mathematical range is between −1 and +1
 |`fround`       | Returns floating-point numbers by definition
+|`imul`         | ???
 |`random`       | No conceptual integer-only analogue
 |`sin`          | Mathematical range is between −1 and +1
 |`tan`          | Periodic asymptotes for each π multiple
@@ -97,4 +98,5 @@ return BigInts (never regular Numbers) or throw TypeErrors.
 | Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return BigInts when given BigInts? | No, returning only one of three values (`-1n`, `0n`, or `+1n`) is not useful for trigonometric functions.
 | Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return Numbers when given BigInts? | No, we must continue to avoid implicit conversions. Because of this, we are not extending these functions to accept BigInts.
 | Should we extend `tan` to accept and return BigInts? | No: `tan` has periodic asymptotes, for each multiple of π, and every BigInt input would have essentially random rounded `tan` values, depending on how close they are to a π multiple. This is in contrast to non-periodic functions like `log` and `sqrt`, which are still useful even when constrained to integer inputs.
+| Should we extend `clz32` and `imul` to take BigInts? | This is currently unresolved.
 | What should `hypot`, `max`, and `min` return when given no BigInt arguments? | We have made new `big` versions of each of these variadic functions, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError. We do this to avoid unexpected returning of Numbers instead of BigInts – for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n` whenever `arrayOfBigInts` happens to be empty.
