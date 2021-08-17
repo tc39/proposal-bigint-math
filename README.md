@@ -18,7 +18,7 @@ since their standardization in ES 2021.
 Several built-in `Math` functions
 would make sense with BigInts,
 yet still do not support them;
-they only support regular JavaScript Numbers.
+they only support regular floating-point JavaScript Numbers.
 This proposal extends those functions’ behavior to accept BigInts:
 
 * `Math.abs`
@@ -26,12 +26,14 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.asinh`
 * `Math.atanh`
 * `Math.ceil`
+* `Math.clz32`
 * `Math.cosh`
 * `Math.cbrt`
 * `Math.exp`
 * `Math.expm1`
 * `Math.floor`
 * `Math.hypot`
+* `Math.imul`
 * `Math.log`
 * `Math.log1p`
 * `Math.log10`
@@ -52,6 +54,10 @@ due to their variadic parameters:
 * `Math.bigMax` for `Math.max` (throws TypeError with no arguments)
 * `Math.bigMin` for `Math.min` (throws TypeError with no arguments)
 
+(We do this to avoid unexpected returning of regular Numbers instead of BigInts –
+for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n`
+whenever `arrayOfBigInts` happens to be empty.)
+
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
@@ -68,48 +74,21 @@ are excluded from this proposal. These include:
 
 For instance, because cosines range between −1 and +1,
 `Math.cos` cannot return useful BigInt values
-As with the rest of the JavaScript language,
-this proposal avoids any implicit conversion between Numbers or BigInts.
-All functions above, when given BigInt arguments, return BigInts (never regular Numbers).
-
-Functions that take multiple numeric arguments, like `Math.max`,
-must be given all Number arguments
-or all BigInt arguments or else they will throw a TypeError.
-We do this to avoid unexpected returning of Numbers instead of BigInts –
-for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n`
-whenever `arrayOfBigInts` happens to be empty.
 (which would be restricted to `-1n`, `0n`, and `+1n`).
 
 ## Design choices
 
+As with the rest of the JavaScript language,
+this proposal **avoids any implicit conversion** between Numbers or BigInts.
+The only built-in function that could ever
+return a regular Number when given a BigInt remains `Number`,
+and the only built-in function that could ever
+return BigInt when given a regular Number is `BigInt`.
+All the other functions above, when given BigInt arguments,
+return BigInts (never regular Numbers) or throw TypeErrors.
+
 | Dilemma | Choice
 | ------- | ------
-
-## Real-world examples
-Only minor formatting changes have been made to the status-quo examples.
-
-<table>
-<thead>
-<tr>
-<th>Status quo
-<th>With binding
-
-<tbody>
-<tr>
-<td>
-
-```js
-???
-```
-From ???.
-
-<td>
-
-```js
-???
-```
-
-</table>
 Should we extend `round`, `floor`, `ceil`, and `trunc` to take BigInts? | Yes: they are just identity functions.
 Are there any real-use cases for applying irrational-returning functions like `sqrt` to BigInts? | We don’t yet know, but we’re extending them anyway.
 Should those irrational-returning functions return BigInts? | Yes, we **must** continue to avoid implicit conversions.
