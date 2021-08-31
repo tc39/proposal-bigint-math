@@ -31,7 +31,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.expm1`
 * `Math.floor`
 * `Math.hypot`
-* `Math.imul`
 * `Math.log`
 * `Math.log1p`
 * `Math.log10`
