@@ -55,6 +55,15 @@ due to their variadic parameters:
 for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n`
 whenever `arrayOfBigInts` happens to be empty.)
 
+<details>
+<summary>Alternative solution for BigInt `hypot`, `max`, and `min`</summary>
+
+Alternatively, instead of adding `Math.bigHypot`, `Math.bigMax`, and `Math.min`,
+we could the add `hypot`, `max`, and `min` methods to `BigInt` (and to `Number` too).
+See [issue #3](https://github.com/js-choi/proposal-bigint-math/issues/3).
+
+</details>
+
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
