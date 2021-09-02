@@ -22,17 +22,10 @@ they only support regular floating-point JavaScript Numbers.
 This proposal extends those functions’ behavior to accept BigInts:
 
 * `Math.abs`
-* `Math.acosh`
-* `Math.asinh`
 * `Math.ceil`
-* `Math.cosh`
 * `Math.cbrt`
-* `Math.exp`
-* `Math.expm1`
 * `Math.floor`
 * `Math.hypot`
-* `Math.log`
-* `Math.log1p`
 * `Math.log10`
 * `Math.log2`
 * `Math.max`
@@ -40,7 +33,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.pow`
 * `Math.round`
 * `Math.sign`
-* `Math.sinh`
 * `Math.sqrt`
 * `Math.trunc`
 
@@ -69,19 +61,27 @@ are excluded from this proposal. These include:
 
 |`Math` method  | Exclusion reason
 | ------------- | ----------------
-|`acos`         | Mathematical domain is between −1 and +1
-|`asin`         | Mathematical domain is between −1 and +1
-|`atan`         | Mathematical range is between −π/2 and +π/2
-|`atan2`        | Mathematical range is between −π/2 and +π/2
-|`atanh`        | Mathematical domain is between −1 and +1
+|`acos`         | Transcendental, very difficult to calculate when large
+|`acosh`        | Transcendental
+|`asin`         | Transcendental
+|`asinh`        | Transcendental
+|`atan`         | Transcendental
+|`atan2`        | Transcendental
+|`atanh`        | Transcendental
 |`clz32`        | ???
-|`cos`          | Mathematical range is between −1 and +1
+|`cos`          | Transcendental
+|`cosh`         | Transcendental
+|`exp`          | Transcendental
+|`expm1`        | Transcendental
 |`fround`       | Returns floating-point numbers by definition
 |`imul`         | ???
+|`log`          | Transcendental
+|`log1p`        | Transcendental
 |`random`       | No conceptual integer-only analogue
-|`sin`          | Mathematical range is between −1 and +1
-|`tan`          | Periodic asymptotes for each π multiple
-|`tanh`         | Mathematical range is between −1 and +1
+|`sin`          | Transcendental
+|`sinh`         | Transcendental
+|`tan`          | Transcendental
+|`tanh`         | Transcendental
 
 For instance, because cosines range between −1 and +1,
 `Math.cos` cannot return useful BigInt values
