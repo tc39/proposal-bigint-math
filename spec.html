@@ -417,7 +417,9 @@ contributors: J. S. Choi
             <dl class="header">
             </dl>
             <emu-alg>
-              1. Return an implementation-approximated BigInt value representing the result of the cube root of ℝ(_x_).
+              1. If _x_ &lt; *0*<sub>ℤ</sub>, throw a *RangeError* exception.
+              1. Let _root_ be the result of the cube root of ℝ(_x_).
+              1. Return the BigInt value that represents _root_ rounded towards 0 to the next integer value.
             </emu-alg>
           </emu-clause>
 
@@ -514,7 +516,9 @@ contributors: J. S. Choi
             <dl class="header">
             </dl>
             <emu-alg>
-              1. Return an implementation-approximated BigInt value representing the result of the square root of ℝ(_x_).
+              1. If _x_ &lt; *0*<sub>ℤ</sub>, throw a *RangeError* exception.
+              1. Let _root_ be the result of the square root of ℝ(_x_).
+              1. Return the BigInt value that represents _root_ rounded towards 0 to the next integer value.
             </emu-alg>
           </emu-clause>
 
