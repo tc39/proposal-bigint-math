@@ -36,6 +36,10 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.sqrt`
 * `Math.trunc`
 
+`log10`, `log2`, `sqrt`, and `cbrt` all truncate BigInt results towards zero
+when their results would not have been integers,
+just like BigInt division.
+
 In addition, the following new methods are added
 as special versions of existing methods for BigInts,
 due to their variadic parameters:
