@@ -60,6 +60,15 @@ See [issue #3](https://github.com/js-choi/proposal-bigint-math/issues/3).
 
 </details>
 
+As with the rest of the JavaScript language,
+this proposal **avoids any implicit conversion** between Numbers or BigInts.
+The only built-in function that could ever
+return a regular Number when given a BigInt remains `Number`,
+and the only built-in function that could ever
+return BigInt when given a regular Number is `BigInt`.
+All the other functions above, when given BigInt arguments,
+return BigInts (never regular Numbers) or throw TypeErrors.
+
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
@@ -86,30 +95,3 @@ are excluded from this proposal. These include:
 |`sinh`         | Transcendental
 |`tan`          | Transcendental
 |`tanh`         | Transcendental
-
-For instance, because cosines range between −1 and +1,
-`Math.cos` cannot return useful BigInt values
-(which would be restricted to `-1n`, `0n`, and `+1n`).
-
-## Design choices
-
-As with the rest of the JavaScript language,
-this proposal **avoids any implicit conversion** between Numbers or BigInts.
-The only built-in function that could ever
-return a regular Number when given a BigInt remains `Number`,
-and the only built-in function that could ever
-return BigInt when given a regular Number is `BigInt`.
-All the other functions above, when given BigInt arguments,
-return BigInts (never regular Numbers) or throw TypeErrors.
-
-| Dilemma | Choice
-| ------- | ------
-| Should we extend `round`, `floor`, `ceil`, and `trunc` to take BigInts? | Yes: they are just identity functions.
-| Are there any real-use cases for applying irrational-returning functions like `sqrt` to BigInts? | We do not yet know, but we’re extending them anyway.
-| Should those irrational-returning functions return BigInts? | Yes, we must continue to avoid implicit conversions.
-| How should their irrational results be rounded? | They should return implementation-approximated BigInts.
-| Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return BigInts when given BigInts? | No, returning only one of three values (`-1n`, `0n`, or `+1n`) is not useful for trigonometric functions.
-| Should `sin`, `cos`, `atan`, `atan2`, and `tanh` return Numbers when given BigInts? | No, we must continue to avoid implicit conversions. Because of this, we are not extending these functions to accept BigInts.
-| Should we extend `tan` to accept and return BigInts? | No: `tan` has periodic asymptotes, for each multiple of π, and every BigInt input would have essentially random rounded `tan` values, depending on how close they are to a π multiple. This is in contrast to non-periodic functions like `log` and `sqrt`, which are still useful even when constrained to integer inputs.
-| Should we extend `clz32` and `imul` to take BigInts? | This is currently unresolved.
-| What should `hypot`, `max`, and `min` return when given no BigInt arguments? | We have made new `big` versions of each of these variadic functions, and we make `bigHypot` return `0`, and `bigMax`/`bigMin` throw a TypeError. We do this to avoid unexpected returning of Numbers instead of BigInts – for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n` whenever `arrayOfBigInts` happens to be empty.
