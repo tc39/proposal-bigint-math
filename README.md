@@ -35,6 +35,7 @@ This proposal extends those functions’ behavior to accept BigInts:
 * `Math.log1p`
 * `Math.log10`
 * `Math.log2`
+* `Math.max`
 * `Math.min`
 * `Math.pow`
 * `Math.round`
