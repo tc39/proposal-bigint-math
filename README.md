@@ -19,47 +19,58 @@ Several built-in `Math` functions
 would make sense with BigInts,
 yet they still do not support them;
 they only support regular floating-point JavaScript Numbers.
-This proposal extends those functions’ behavior to accept BigInts:
 
-* `Math.abs`
-* `Math.ceil`
-* `Math.cbrt`
-* `Math.floor`
-* `Math.hypot`
-* `Math.log10`
-* `Math.log2`
-* `Math.max`
-* `Math.min`
-* `Math.pow`
-* `Math.round`
-* `Math.sign`
-* `Math.sqrt`
-* `Math.trunc`
+This proposal extends those functions’ behavior to accept BigInts.
+Its philosophy is that BigInts and Numbers
+should **always be interchangeable by default**,
+**unless** that would cause silent precision loss –
+i.e., unless there's a strong reason they should not be.
 
-`log10`, `log2`, `sqrt`, and `cbrt` all truncate BigInt results towards zero
+`abs`\
+`sign`\
+`pow` §
+
+`floor` \*\
+`ceil` \*\
+`round` \*\
+`trunc` \*
+
+`log2` †\
+`log10` †\
+`sqrt` †\
+`cbrt` †\
+`hypot` † §
+
+`min` ‡\
+`max` ‡
+
+**\*** The integer-rounding methods `floor`, `ceil`, `round`, and `trunc`
+are included as identity functions
+in order to increase interchangability between BigInts and Numbers.
+This is being debated in [issue #8][].
+
+**†** `log10`, `log2`, `sqrt`, and `cbrt` all truncate BigInt results towards zero
 when their results would not have been integers,
 just like BigInt division.
 
-As with the rest of the JavaScript language,
-this proposal **avoids any implicit conversion** between Numbers or BigInts.
-The only built-in function that could ever
-return a regular Number when given a BigInt remains `Number`,
-and the only built-in function that could ever
-return BigInt when given a regular Number is `BigInt`.
-All the other functions above, when given BigInt arguments,
-return BigInts (never regular Numbers) or throw TypeErrors.
-
-However, `min` and `max` accept mixed numeric types:
-`Math.min(0, 1n, -1)` evaluates to `0`,
-and `Math.max(0, 1n, -1)` evaluates to `1n`.
+**‡** `min` and `max` accept mixed numeric types:\
+`min(0, 1n, -1)` evaluates to `0`,\
+and `max(0, 1n, -1)` evaluates to `1n`.\
 This is well defined because `<` is well defined over mixed numeric types;
 there is no loss of precision.
-(In contrast, `Math.pow` and `Math.hypot` do not accept mixed types.)
 
 When `Math.min` and `Math.max` receive values of different numeric types
 that nevertheless have equivalent mathematical values,
 then `min` prefers the leftmost value and `max` prefers the rightmost value.
 For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
+See [issue #3][].
+
+**§** In contrast to `min` and `max`, `pow` and `hypot` do not accept mixed types;
+for example, `pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
+(Nullary `hypot()`, with no arguments, still returns the number value `+0`.
+The developer must ensure that `hypot`’s arguments are not empty
+in order to guarantee that `hypot` returns a BigInt`.
+See [issue #6][].
 
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
@@ -73,13 +84,13 @@ are excluded from this proposal. These include:
 |`atan`         | Transcendental
 |`atan2`        | Transcendental
 |`atanh`        | Transcendental
-|`clz32`        | ???
+|`clz32`        | [Issue #9][]
 |`cos`          | Transcendental
 |`cosh`         | Transcendental
 |`exp`          | Transcendental
 |`expm1`        | Transcendental
 |`fround`       | Returns floating-point numbers by definition
-|`imul`         | ???
+|`imul`         | [Issue #9][]
 |`log`          | Transcendental
 |`log1p`        | Transcendental
 |`random`       | No conceptual integer-only analogue
@@ -87,3 +98,8 @@ are excluded from this proposal. These include:
 |`sinh`         | Transcendental
 |`tan`          | Transcendental
 |`tanh`         | Transcendental
+
+[issue #3]: https://github.com/js-choi/proposal-bigint-math/issues/3#issuecomment-912133467
+[issue #6]: https://github.com/js-choi/proposal-bigint-math/issues/6
+[issue #8]: https://github.com/js-choi/proposal-bigint-math/issues/8
+[issue #9]: https://github.com/js-choi/proposal-bigint-math/issues/9
