@@ -302,6 +302,29 @@ contributors: J. S. Choi
             </emu-note>
           </emu-clause>
 
+          <emu-clause id="sec-numeric-types-number-hypot" type="numeric method">
+            <h1>
+              Number::hypot (
+                _x_: a BigInt,
+                _rest_: a List,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Let _coerced_ be « _x_ ».
+              1. For each element _arg_ of _rest_, do
+                1. Let _n_ be ? ToNumber(_arg_).
+                1. Append _n_ to _coerced_.
+              1. Let _onlyZero_ be *true*.
+              1. For each element _bigInt_ of _coerced_, do
+                1. If _bigInt_ is *NaN*, return *NaN*.
+                1. If _bigInt_ is neither *+0*<sub>𝔽</sub> nor *-0*<sub>ℤ</sub>, set _onlyZero_ to *false*.
+              1. If _onlyZero_ is *true*, return *0*<sub>ℤ</sub>.
+              1. Return an implementation-approximated value representing the square root of the sum of squares of the mathematical values of the elements of _coerced_.
+            </emu-alg>
+          </emu-clause>
+
           <emu-clause id="sec-numeric-types-number-log10" type="numeric method">
             <h1>
               Number::log10 (
@@ -369,7 +392,7 @@ contributors: J. S. Choi
             <emu-alg>
               1. If _x_ is *NaN*, _x_ is *+0*<sub>𝔽</sub>, _x_ is *-0*<sub>𝔽</sub>, or _x_ is *+&infin;*<sub>𝔽</sub>, return _x_.
               1. If _x_ &lt; *+0*<sub>𝔽</sub>, return *NaN*.
-              1. Return an implementation-approximated value representing the result of the square root of ℝ(_x_).
+              1. Return an implementation-approximated value that represents the result of the square root of ℝ(_x_).
             </emu-alg>
           </emu-clause>
 
@@ -446,6 +469,25 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return _x_.
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-bigint-hypot" type="numeric method">
+            <h1>
+              BigInt::hypot (
+                _x_: a BigInt,
+                _rest_: a List,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Let _coerced_ be « _x_ ».
+              1. For each element _arg_ of _rest_, do
+                1. Let _n_ be ? ToBigInt(_arg_).
+                1. Append _n_ to _coerced_.
+              1. Let _hypot_ be the square root of the sum of squares of the mathematical values of the elements of _coerced_.
+              1. Return the BigInt value that represents _hypot_ rounded towards 0 to the next integer value.
             </emu-alg>
           </emu-clause>
 
@@ -580,28 +622,6 @@ contributors: J. S. Choi
 
       <ins class="block">
 
-      <emu-clause id="sec-math.bighypot">
-        <h1>Math.bigHypot ( ..._args_ )</h1>
-        <p>Returns the square root of the sum of squares of its arguments as a BigInt. Its arguments must also all be BigInts.</p>
-        <p>When the `Math.bigHypot` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
-        <emu-alg>
-          1. Let _coerced_ be a new empty List.
-          1. For each element _arg_ of _args_, do
-            1. Let _n_ be ? ToBigInt(_arg_).
-            1. Append _n_ to _coerced_.
-          1. Let _onlyZero_ be *true*.
-          1. For each element _bigInt_ of _coerced_, do
-            1. If _bigInt_ is *NaN*, return *NaN*.
-            1. If _bigInt_ is neither *+0*<sub>𝔽</sub> nor *-0*<sub>ℤ</sub>, set _onlyZero_ to *false*.
-          1. If _onlyZero_ is *true*, return *0*<sub>ℤ</sub>.
-          1. Return an implementation-approximated value representing the square root of the sum of squares of the mathematical values of the elements of _coerced_.
-        </emu-alg>
-        <p>The *"length"* property of the `bigHypot` method is *2*<sub>𝔽</sub>.</p>
-        <emu-note>
-          <p>Implementations should take care to avoid the loss of precision from overflows and underflows that are prone to occur in naive implementations when this function is called with two or more arguments.</p>
-        </emu-note>
-      </emu-clause>
-
       <emu-clause id="sec-math.bigmax">
         <h1>Math.bigMax ( _firstArg_, ..._restArgs_ )</h1>
         <p>Given one or more arguments, calls ToBigInt on each of the arguments and returns the largest of the resulting values.</p>
@@ -715,6 +735,40 @@ contributors: J. S. Choi
         </ins>
         <emu-note>
           <p>The value of `Math.floor(x)` is the same as the value of `-Math.ceil(-x)`.</p>
+        </emu-note>
+      </emu-clause>
+
+      <emu-clause id="sec-math.hypot">
+        <h1>Math.hypot ( ..._args_ )</h1>
+        <p>Returns the square root of the sum of squares of its arguments.</p>
+        <p>When the `Math.hypot` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
+        <del class="block">
+        <emu-alg>
+          1. Let _coerced_ be a new empty List.
+          1. For each element _arg_ of _args_, do
+            1. Let _n_ be ? ToNumber(_arg_).
+            1. Append _n_ to _coerced_.
+          1. For each element _number_ of _coerced_, do
+            1. If _number_ is *+&infin;*<sub>𝔽</sub> or _number_ is *-&infin;*<sub>𝔽</sub>, return *+&infin;*<sub>𝔽</sub>.
+          1. Let _onlyZero_ be *true*.
+          1. For each element _number_ of _coerced_, do
+            1. If _number_ is *NaN*, return *NaN*.
+            1. If _number_ is neither *+0*<sub>𝔽</sub> nor *-0*<sub>𝔽</sub>, set _onlyZero_ to *false*.
+          1. If _onlyZero_ is *true*, return *+0*<sub>𝔽</sub>.
+          1. Return an implementation-approximated value representing the square root of the sum of squares of the mathematical values of the elements of _coerced_.
+        </emu-alg>
+        </del>
+        <ins class="block">
+        <emu-alg>
+          1. If _args_ is empty, then return *+0*<sub>𝔽</sub>.
+          1. Let _x_ be _args_[0] and remove that element from _args_.
+          1. Let _n_ be ? ToNumeric().
+          1. Return _T_::hypot(_n_, _args_).
+        </emu-alg>
+        </ins>
+        <p>The *"length"* property of the `hypot` method is *2*<sub>𝔽</sub>.</p>
+        <emu-note>
+          <p>Implementations should take care to avoid the loss of precision from overflows and underflows that are prone to occur in naive implementations when this function is called with two or more arguments.</p>
         </emu-note>
       </emu-clause>
 
