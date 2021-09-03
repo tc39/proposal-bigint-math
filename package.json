@@ -7,7 +7,7 @@
   "repository": "github:js-choi/proposal-bigint-math",
   "scripts": {
     "prespec": "mkdir -p out/",
-    "spec": "ecmarkup spec.html out/index.html --assets inline --contributors \"J. S. Choi, Ecma International\" --copyright true --title \"ES BigInt Math (2021)\" --status \"proposal\" --stage 0",
+    "spec": "ecmarkup spec.html out/index.html --assets inline --contributors \"J. S. Choi, Ecma International\" --copyright true --title \"ES BigInt Math (2021)\" --status \"proposal\" --stage 1",
     "prewatch": "npm run prespec",
     "watch": "npm run spec -- --watch"
   },
