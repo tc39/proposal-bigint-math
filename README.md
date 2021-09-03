@@ -40,26 +40,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 when their results would not have been integers,
 just like BigInt division.
 
-In addition, the following new methods are added
-as special versions of existing methods for BigInts,
-due to their variadic parameters:
-* `Math.bigHypot` for `Math.hypot` (returns `0n` with no arguments)
-* `Math.bigMax` for `Math.max` (throws TypeError with no arguments)
-* `Math.bigMin` for `Math.min` (throws TypeError with no arguments)
-
-(We do this to avoid unexpected returning of regular Numbers instead of BigInts –
-for example, `Math.hypot(arrayOfBigInts)` returning the Number `+0` instead of `0n`
-whenever `arrayOfBigInts` happens to be empty.)
-
-<details>
-<summary>Alternative solution for BigInt `hypot`, `max`, and `min`</summary>
-
-Alternatively, instead of adding `Math.bigHypot`, `Math.bigMax`, and `Math.min`,
-we could the add `hypot`, `max`, and `min` methods to `BigInt` (and to `Number` too).
-See [issue #3](https://github.com/js-choi/proposal-bigint-math/issues/3).
-
-</details>
-
 As with the rest of the JavaScript language,
 this proposal **avoids any implicit conversion** between Numbers or BigInts.
 The only built-in function that could ever
@@ -68,6 +48,18 @@ and the only built-in function that could ever
 return BigInt when given a regular Number is `BigInt`.
 All the other functions above, when given BigInt arguments,
 return BigInts (never regular Numbers) or throw TypeErrors.
+
+However, `min` and `max` accept mixed numeric types:
+`Math.min(0, 1n, -1)` evaluates to `1n`,
+and `Math.max(0, 1n, -1)` evaluates to `0`.
+This is well defined because `<` is well defined over mixed numeric types;
+there is no loss of precision.
+(In contrast, `Math.pow` and `Math.hypot` do not accept mixed types.)
+
+When `Math.min` and `Math.max` receive values of different numeric types
+that nevertheless have equivalent mathematical values,
+then `min` prefers the leftmost value and `max` prefers the rightmost value.
+For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
 
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
