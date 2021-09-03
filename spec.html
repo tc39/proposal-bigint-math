@@ -615,7 +615,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::abs(_n_).
+          1. Return ! _T_::abs(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -635,7 +635,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::cbrt(_n_).
+          1. Return ! _T_::cbrt(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -657,7 +657,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::ceil(_n_).
+          1. Return ! _T_::ceil(_n_).
         </emu-alg>
         </ins>
         <emu-note>
@@ -682,7 +682,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::floor(_n_).
+          1. Return ! _T_::floor(_n_).
         </emu-alg>
         </ins>
         <emu-note>
@@ -715,7 +715,7 @@ contributors: J. S. Choi
           1. If _args_ is empty, then return *+0*<sub>𝔽</sub>.
           1. Let _x_ be _args_[0] and remove that element from _args_.
           1. Let _n_ be ? ToNumeric().
-          1. Return _T_::hypot(_n_, _args_).
+          1. Return ! _T_::hypot(_n_, _args_).
         </emu-alg>
         </ins>
         <p>The *"length"* property of the `hypot` method is *2*<sub>𝔽</sub>.</p>
@@ -742,7 +742,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::log10(_n_).
+          1. Return ! _T_::log10(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -765,7 +765,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::log2(_n_).
+          1. Return ! _T_::log2(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -852,7 +852,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::round(_n_).
+          1. Return ! _T_::round(_n_).
         </emu-alg>
         </ins>
         <emu-note>
@@ -879,7 +879,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::sign(_n_).
+          1. Return ! _T_::sign(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -900,7 +900,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::sqrt(_n_).
+          1. Return ! _T_::sqrt(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
@@ -923,7 +923,7 @@ contributors: J. S. Choi
         <emu-alg>
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
-          1. Return _T_::trunc(_n_).
+          1. Return ! _T_::trunc(_n_).
         </emu-alg>
         </ins>
       </emu-clause>
