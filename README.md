@@ -50,8 +50,8 @@ All the other functions above, when given BigInt arguments,
 return BigInts (never regular Numbers) or throw TypeErrors.
 
 However, `min` and `max` accept mixed numeric types:
-`Math.min(0, 1n, -1)` evaluates to `1n`,
-and `Math.max(0, 1n, -1)` evaluates to `0`.
+`Math.min(0, 1n, -1)` evaluates to `0`,
+and `Math.max(0, 1n, -1)` evaluates to `1n`.
 This is well defined because `<` is well defined over mixed numeric types;
 there is no loss of precision.
 (In contrast, `Math.pow` and `Math.hypot` do not accept mixed types.)
