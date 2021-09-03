@@ -620,54 +620,6 @@ contributors: J. S. Choi
         </ins>
       </emu-clause>
 
-      <ins class="block">
-
-      <emu-clause id="sec-math.bigmax">
-        <h1>Math.bigMax ( _firstArg_, ..._restArgs_ )</h1>
-        <p>Given one or more arguments, calls ToBigInt on each of the arguments and returns the largest of the resulting values.</p>
-        <p>When the `Math.bigMax` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
-        <emu-alg>
-          1. Let _firstCoerced_ be ? ToBigInt(_firstArg_).
-          1. Let _restCoerced_ be a new empty List.
-          1. For each element _arg_ of _args_, do
-            1. Let _n_ be ? ToBigInt(_arg_).
-            1. Append _n_ to _restCoerced_.
-          1. Let _highest_ be _firstCoerced_.
-          1. For each element _bigInt_ of _restCoerced_, do
-            1. If _bigInt_ &gt; _highest_, set _highest_ to _bigInt_.
-          1. Return _highest_.
-        </emu-alg>
-        <emu-note>
-          <p>The comparison of values to determine the largest value is done using the IsLessThan algorithm.</p>
-          <p>Unlike <emu-xref href="#sec-math.max" title></emu-xref>, at least one argument is required. This is because there is no largest BigInt value, in contrast to Number values, which are bounded by *+&infin;*<sub>𝔽</sub>.</p>
-        </emu-note>
-        <p>The *"length"* property of the `bigMax` method is *2*<sub>𝔽</sub>.</p>
-      </emu-clause>
-
-      <emu-clause id="sec-math.bigmin">
-        <h1>Math.bigMin ( _firstArg_, ..._restArgs_ )</h1>
-        <p>Given zero or more arguments, calls ToBigInt on each of the arguments and returns the smallest of the resulting values.</p>
-        <p>When the `Math.bigMin` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
-        <emu-alg>
-          1. Let _firstCoerced_ be ? ToBigInt(_firstArg_).
-          1. Let _restCoerced_ be a new empty List.
-          1. For each element _arg_ of _args_, do
-            1. Let _n_ be ? ToBigInt(_arg_).
-            1. Append _n_ to _restCoerced_.
-          1. Let _lowest_ be _firstCoerced_.
-          1. For each element _bigInt_ of _restCoerced_, do
-            1. If _bigInt_ &lt; _lowest_, set _lowest_ to _bigInt_.
-          1. Return _lowest_.
-        </emu-alg>
-        <emu-note>
-          <p>The comparison of values to determine the least value is done using the IsLessThan algorithm.</p>
-          <p>Unlike <emu-xref href="#sec-math.min" title></emu-xref>, at least one argument is required. This is because there is no least BigInt value, in contrast to Number values, which are bounded by *-&infin;*<sub>𝔽</sub>.</p>
-        </emu-note>
-        <p>The *"length"* property of the `bigMin` method is *2*<sub>𝔽</sub>.</p>
-      </emu-clause>
-
-      </ins>
-
       <emu-clause id="sec-math.cbrt">
         <h1>Math.cbrt ( _x_ )</h1>
         <p>Returns the cube root of _x_.</p>
@@ -816,6 +768,50 @@ contributors: J. S. Choi
           1. Return _T_::log2(_n_).
         </emu-alg>
         </ins>
+      </emu-clause>
+
+      <emu-clause id="sec-math.max">
+        <h1>Math.max ( ..._args_ )</h1>
+        <p>Given zero or more arguments, calls <del>ToNumber</del><ins>ToNumeric</ins> on each of the arguments and returns the largest of the resulting values. <ins>When multiple arguments share the same mathematical value, then the latest argument is returned.</ins></p>
+        <p>When the `Math.max` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
+        <emu-alg>
+          1. Let _coerced_ be a new empty List.
+          1. For each element _arg_ of _args_, do
+            1. Let _n_ be ? <del>ToNumber</del><ins>ToNumeric</ins>(_arg_).
+            1. Append _n_ to _coerced_.
+          1. Let _highest_ be *-&infin;*<sub>𝔽</sub>.
+          1. For each element _number_ of _coerced_, do
+            1. If _number_ is *NaN*, return *NaN*.
+            1. If _number_ is *+0*<sub>𝔽</sub> and _highest_ is *-0*<sub>𝔽</sub>, set _highest_ to *+0*<sub>𝔽</sub>.
+            1. If <del>_number_ &gt; _highest_</del><ins>ℝ(_number_) ≥ ℝ(_highest_)</ins>, set _highest_ to _number_.
+          1. Return _highest_.
+        </emu-alg>
+        <emu-note>
+          <p>The comparison of values to determine the largest value is done using the IsLessThan algorithm except that *+0*<sub>𝔽</sub> is considered to be larger than *-0*<sub>𝔽</sub>.</p>
+        </emu-note>
+        <p>The *"length"* property of the `max` method is *2*<sub>𝔽</sub>.</p>
+      </emu-clause>
+
+      <emu-clause id="sec-math.min">
+        <h1>Math.min ( ..._args_ )</h1>
+        <p>Given zero or more arguments, calls <del>ToNumber</del><ins>ToNumeric</ins> on each of the arguments and returns the smallest of the resulting values. <ins>When multiple arguments share the same mathematical value, then the earliest argument is returned.</ins></p>
+        <p>When the `Math.min` method is called with zero or more arguments which form the rest parameter ..._args_, the following steps are taken:</p>
+        <emu-alg>
+          1. Let _coerced_ be a new empty List.
+          1. For each element _arg_ of _args_, do
+            1. Let _n_ be ? <del>ToNumber</del><ins>ToNumeric</ins>(_arg_).
+            1. Append _n_ to _coerced_.
+          1. Let _lowest_ be *+&infin;*<sub>𝔽</sub>.
+          1. For each element _number_ of _coerced_, do
+            1. If _number_ is *NaN*, return *NaN*.
+            1. If _number_ is *-0*<sub>𝔽</sub> and _lowest_ is *+0*<sub>𝔽</sub>, set _lowest_ to *-0*<sub>𝔽</sub>.
+            1. If <del>_number_ &lt; _lowest_</del><ins>ℝ(_number_) &lt; ℝ(_lowest_)</ins>, set _lowest_ to _number_.
+          1. Return _lowest_.
+        </emu-alg>
+        <emu-note>
+          <p>The comparison of values to determine the largest value is done using the IsLessThan algorithm except that *+0*<sub>𝔽</sub> is considered to be larger than *-0*<sub>𝔽</sub>.</p>
+        </emu-note>
+        <p>The *"length"* property of the `min` method is *2*<sub>𝔽</sub>.</p>
       </emu-clause>
 
       <emu-clause id="sec-math.pow">
