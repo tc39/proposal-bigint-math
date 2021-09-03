@@ -28,6 +28,7 @@ i.e., unless there's a strong reason they should not be.
 
 `abs`\
 `sign`\
+`clz32`\
 `pow` §
 
 `floor` \*\
@@ -84,7 +85,6 @@ are excluded from this proposal. These include:
 |`atan`         | Transcendental
 |`atan2`        | Transcendental
 |`atanh`        | Transcendental
-|`clz32`        | [Issue #9][]
 |`cos`          | Transcendental
 |`cosh`         | Transcendental
 |`exp`          | Transcendental
