@@ -58,7 +58,7 @@ just like with BigInt division:
 * `(3000000000n - 1n) / 1000000000n` already returns `2n`.
 * `cbrt(131329n ** 3n - 1n)` would return `131328n`.
 * `sqrt(67108865n ** 2n - 1n)` would return `67108864n`.
-* `log2(2n ** 49n - 1n)` would return `49n`.
+* `log2(2n ** 49n - 1n)` would return `48n`.
 * `log10(10n ** 15n - 1n)` would return `14n`.
 
 **‡** `min` and `max` accept mixed numeric types:\
