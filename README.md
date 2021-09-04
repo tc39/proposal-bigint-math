@@ -80,6 +80,8 @@ The developer must ensure that `hypot`’s arguments are not empty
 in order to guarantee that `hypot` returns a BigInt.
 See [issue #6][].
 
+***
+
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
