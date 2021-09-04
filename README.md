@@ -61,6 +61,9 @@ just like with BigInt division:
 * `log2(2n ** 49n - 1n)` would return `48n`.
 * `log10(10n ** 15n - 1n)` would return `14n`.
 
+`log10` and `log2` throw RangeError when given a BigInt ≤ `0n`.\
+`sqrt` and `cbrt` throw RangeError when given a BigInt < `0`.
+
 **‡** `min` and `max` accept mixed numeric types:\
 `min(0, 1n, -1)` evaluates to `0`,\
 and `max(0, 1n, -1)` evaluates to `1n`.\
