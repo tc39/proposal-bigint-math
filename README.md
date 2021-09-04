@@ -77,7 +77,7 @@ See [issue #3][].
 for example, `pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
 (Nullary `hypot()`, with no arguments, still returns the number value `+0`.
 The developer must ensure that `hypot`’s arguments are not empty
-in order to guarantee that `hypot` returns a BigInt`.
+in order to guarantee that `hypot` returns a BigInt.
 See [issue #6][].
 
 Existing `Math` functions that would not make sense with BigInts
