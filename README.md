@@ -6,6 +6,24 @@ ECMAScript Stage-1 Proposal. J. S. Choi, 2021.
 
 [specification]: http://jschoi.org/21/es-bigint-math/
 
+## Philosophy
+The philosophy is to be **consistent with the precedents** already set by the language.
+These precedent include the following five rules:
+
+1. BigInts and Numbers are *not* semantically interchangeable.
+   It is important for the developer to reason about them differently.
+2. But, for ease of use, *many* (but not all) numeric operations
+   (such as division `/` and exponentiation `**`)
+   are type overloaded to accept both Numbers and BigInts.
+3. These type-overloaded numeric operations
+   *cannot mix* Numbers and BigInts, with the exception of *comparison* operations.
+4. Some numeric operations are not overloaded (such as unary `+`).
+   The programmer has to remember which operations are overloaded and which ones are not.
+5. asm.js is still important, and operations on which it depends are not type overloaded.
+
+In this precedent, only syntactic operators are currently considered as math operations.
+We extend this precedent such that `Math` methods are also considered math operations.
+
 ## Description
 (A [formal draft specification][specification] is available.)
 
