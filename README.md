@@ -6,38 +6,6 @@ ECMAScript Stage-1 Proposal. J. S. Choi, 2021.
 
 [specification]: http://jschoi.org/21/es-bigint-math/
 
-## Philosophy
-The philosophy is to be **consistent with the precedents** already set by the language.
-These precedent include the following five rules:
-
-1. BigInts and Numbers are *not* semantically interchangeable.
-   It is important for the developer to reason about them differently.
-2. But, for ease of use, *many* (but not all) numeric operations
-   (such as division `/` and exponentiation `**`)
-   are type overloaded to accept both Numbers and BigInts.
-3. These type-overloaded numeric operations
-   *cannot mix* Numbers and BigInts, with the exception of *comparison* operations.
-4. Some numeric operations are not overloaded (such as unary `+`).
-   The programmer has to remember which operations are overloaded and which ones are not.
-5. asm.js is still important, and operations on which it depends are not type overloaded.
-
-In this precedent, only syntactic operators are currently considered as math operations.
-We extend this precedent such that `Math` methods are also considered math operations.
-
-## Vision
-This initial proposal overloads only a few first `Math` methods.
-The vision is that this proposal would open up the way
-to new proposals that would further extend `Math` with type-overloaded methods.
-These may include:
-
-* [`Math.popCount`](https://vaibhavsagar.com/blog/2019/09/08/popcount/)
-* [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
-* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_exponentiation)
-* [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
-* [`Math.clz64`](https://en.wikipedia.org/wiki/Find_first_set)
-* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
-* [`Math.range`](https://github.com/tc39/proposal-Number.range)
-
 ## Description
 (A [formal draft specification][specification] is available.)
 
@@ -82,10 +50,41 @@ When `Math.min` and `Math.max` receive values of different numeric types
 that nevertheless have equivalent mathematical values,
 then `min` prefers the leftmost value and `max` prefers the rightmost value.
 For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
-See [issue #3][].
+(See [issue #3][].)
 
-***
+## Philosophy
+The philosophy is to be **consistent with the precedents** already set by the language.
+These precedent include the following five rules:
 
+1. BigInts and Numbers are *not* semantically interchangeable.
+   It is important for the developer to reason about them differently.
+2. But, for ease of use, *many* (but not all) numeric operations
+   (such as division `/` and exponentiation `**`)
+   are type overloaded to accept both Numbers and BigInts.
+3. These type-overloaded numeric operations
+   *cannot mix* Numbers and BigInts, with the exception of *comparison* operations.
+4. Some numeric operations are not overloaded (such as unary `+`).
+   The programmer has to remember which operations are overloaded and which ones are not.
+5. asm.js is still important, and operations on which it depends are not type overloaded.
+
+In this precedent, only syntactic operators are currently considered as math operations.
+We extend this precedent such that `Math` methods are also considered math operations.
+
+## Vision
+This initial proposal overloads only a few first `Math` methods.
+The vision is that this proposal would open up the way
+to new proposals that would further extend `Math` with type-overloaded methods.
+These may include:
+
+* [`Math.popCount`](https://vaibhavsagar.com/blog/2019/09/08/popcount/)
+* [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
+* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_exponentiation)
+* [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
+* [`Math.clz64`](https://en.wikipedia.org/wiki/Find_first_set)
+* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
+* [`Math.range`](https://github.com/tc39/proposal-Number.range)
+
+## Excluded `Math`
 Existing `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
