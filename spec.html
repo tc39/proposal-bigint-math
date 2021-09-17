@@ -168,6 +168,22 @@ contributors: J. S. Choi
               <p>If _n_ is *+0*<sub>𝔽</sub> or _n_ is *-0*<sub>𝔽</sub>, this method returns *32*<sub>𝔽</sub>. If the most significant bit of the 32-bit binary encoding of _n_ is 1, this method returns *+0*<sub>𝔽</sub>.</p>
             </emu-note>
           </emu-clause>
+
+          <emu-clause id="sec-numeric-types-number-sign" type="numeric method">
+            <h1>
+              Number::sign (
+                _x_: a Number,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Let _n_ be ? ToNumber(_x_).
+              1. If _n_ is *NaN*, _n_ is *+0*<sub>𝔽</sub>, or _n_ is *-0*<sub>𝔽</sub>, return _n_.
+              1. If _n_ &lt; *+0*<sub>𝔽</sub>, return *-1*<sub>𝔽</sub>.
+              1. Return *1*<sub>𝔽</sub>.
+            </emu-alg>
+          </emu-clause>
         </ins>
       </emu-clause>
 
@@ -185,6 +201,21 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return the BigInt value that represents abs(ℝ(_x_)).
+            </emu-alg>
+          </emu-clause>
+
+          <emu-clause id="sec-numeric-types-bigint-clz32" type="numeric method">
+            <h1>
+              BigInt::clz32 (
+                _x_: a BigInt,
+              )
+            </h1>
+            <dl class="header">
+            </dl>
+            <emu-alg>
+              1. Let _int_ be the mathematical value whose sign is the sign of _x_ and whose magnitude is abs(ℝ(_x_)).
+              1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
+              1. Return ℤ(_int32bit_).
             </emu-alg>
           </emu-clause>
 
@@ -351,8 +382,8 @@ contributors: J. S. Choi
           1. Let _T_ be Type(_n_).
           1. Return ! _T_::sign(_n_).
         </emu-alg>
-      </ins>
-    </emu-clause>
+        </ins>
+      </emu-clause>
     </emu-clause>
   </emu-clause>
 </emu-clause>
