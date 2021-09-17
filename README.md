@@ -34,9 +34,6 @@ i.e., unless there's a strong reason they should not be.
 `min` †\
 `max` †
 
-`log10` and `log2` throw RangeError when given a BigInt ≤ `0n`.\
-`sqrt` and `cbrt` throw RangeError when given a BigInt < `0`.
-
 **\*** `pow` does not accept mixed types.
 `pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
 
@@ -85,7 +82,8 @@ These may include:
 * [`Math.range`](https://github.com/tc39/proposal-Number.range)
 
 ## Excluded `Math`
-Existing `Math` functions that would not make sense with BigInts
+Similarly to how some numeric operators are not overloaded (such as unary `+`),
+many `Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
 |`Math` method  | Exclusion reason
