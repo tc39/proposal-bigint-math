@@ -29,42 +29,18 @@ i.e., unless there's a strong reason they should not be.
 `abs`\
 `sign`\
 `clz32`\
-`pow` §
+`pow` \*
 
-`floor` \*\
-`ceil` \*\
-`round` \*\
-`trunc` \*
-
-`log2` †\
-`log10` †\
-`sqrt` †\
-`cbrt` †\
-`hypot` † §
-
-`min` ‡\
-`max` ‡
-
-**\*** The integer-rounding methods `floor`, `ceil`, `round`, and `trunc`
-are included as identity functions
-in order to increase interchangability between BigInts and Numbers.
-This is being debated in [issue #8][].
-
-**†** `log10`, `log2`, `sqrt`, and `cbrt` all return BigInts when given BigInts.
-They truncate BigInt results towards zero
-when their results would not have had integer mathematical values,
-just like with BigInt division:
-
-* `(3000000000n - 1n) / 1000000000n` already returns `2n`.
-* `cbrt(131329n ** 3n - 1n)` would return `131328n`.
-* `sqrt(67108865n ** 2n - 1n)` would return `67108864n`.
-* `log2(2n ** 49n - 1n)` would return `48n`.
-* `log10(10n ** 15n - 1n)` would return `14n`.
+`min` †\
+`max` †
 
 `log10` and `log2` throw RangeError when given a BigInt ≤ `0n`.\
 `sqrt` and `cbrt` throw RangeError when given a BigInt < `0`.
 
-**‡** `min` and `max` accept mixed numeric types:\
+**\*** `pow` does not accept mixed types.
+`pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
+
+**†** `min` and `max` accept mixed numeric types:\
 `min(0, 1n, -1)` evaluates to `0`,\
 and `max(0, 1n, -1)` evaluates to `1n`.\
 This is well defined because `<` is well defined over mixed numeric types;
@@ -76,13 +52,6 @@ then `min` prefers the leftmost value and `max` prefers the rightmost value.
 For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
 See [issue #3][].
 
-**§** In contrast to `min` and `max`, `pow` and `hypot` do not accept mixed types;
-for example, `pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
-(Nullary `hypot()`, with no arguments, still returns the number value `+0`.
-The developer must ensure that `hypot`’s arguments are not empty
-in order to guarantee that `hypot` returns a BigInt.
-See [issue #6][].
-
 ***
 
 Existing `Math` functions that would not make sense with BigInts
@@ -90,26 +59,35 @@ are excluded from this proposal. These include:
 
 |`Math` method  | Exclusion reason
 | ------------- | ----------------
-|`acos`         | Transcendental, very difficult to calculate when large
+|`acos`         | Transcendental: very difficult to calculate when large
 |`acosh`        | Transcendental
 |`asin`         | Transcendental
 |`asinh`        | Transcendental
 |`atan`         | Transcendental
 |`atan2`        | Transcendental
 |`atanh`        | Transcendental
+|`cbrt`         | No known use case
+|`ceil`         | No known use case; `Math.ceil(3n / 2n) == 1` may be surprising
 |`cos`          | Transcendental
 |`cosh`         | Transcendental
 |`exp`          | Transcendental
 |`expm1`        | Transcendental
+|`floor`        | No known use case
 |`fround`       | Returns floating-point numbers by definition
-|`imul`         | [Issue #9][]
+|`hypot`        | No known use case
+|`imul`         | No known use case; may complicated asm.js (see [issue #9][])
 |`log`          | Transcendental
+|`log10`        | Truncation may be surprising; no known use case
+|`log2`         | Truncation may be surprising; deferred to future `bitLength` proposal
 |`log1p`        | Transcendental
 |`random`       | No conceptual integer-only analogue
+|`round`        | No known use case; `Math.round(3n / 2n) == 1` may be surprising
 |`sin`          | Transcendental
 |`sinh`         | Transcendental
+|`sinh`         | No known use case
 |`tan`          | Transcendental
 |`tanh`         | Transcendental
+|`trunc`        | No known use case
 
 [issue #3]: https://github.com/js-choi/proposal-bigint-math/issues/3#issuecomment-912133467
 [issue #6]: https://github.com/js-choi/proposal-bigint-math/issues/6
