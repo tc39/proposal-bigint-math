@@ -24,6 +24,20 @@ These precedent include the following five rules:
 In this precedent, only syntactic operators are currently considered as math operations.
 We extend this precedent such that `Math` methods are also considered math operations.
 
+## Vision
+This initial proposal overloads only a few first `Math` methods.
+The vision is that this proposal would open up the way
+to new proposals that would further extend `Math` with type-overloaded methods.
+These may include:
+
+* [`Math.popCount`](https://vaibhavsagar.com/blog/2019/09/08/popcount/)
+* [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
+* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_exponentiation)
+* [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
+* [`Math.clz64`](https://en.wikipedia.org/wiki/Find_first_set)
+* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
+* [`Math.range`](https://github.com/tc39/proposal-Number.range)
+
 ## Description
 (A [formal draft specification][specification] is available.)
 
