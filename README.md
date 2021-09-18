@@ -19,12 +19,7 @@ Several built-in `Math` functions
 would make sense with BigInts,
 yet they still do not support them;
 they only support regular floating-point JavaScript Numbers.
-
-This proposal extends those functions’ behavior to accept BigInts.
-Its philosophy is that BigInts and Numbers
-should **always be interchangeable by default**,
-**unless** that would cause silent precision loss –
-i.e., unless there's a strong reason they should not be.
+This proposal extends those functions’ behavior to accept BigInts:
 
 `abs`\
 `sign`\
@@ -35,7 +30,7 @@ i.e., unless there's a strong reason they should not be.
 `max` †
 
 **\*** `pow` does not accept mixed types.
-`pow(4, 2n)` and `hypot(1n, 2)` will throw TypeErrors.
+`pow(4, 2n)` will throw a TypeError.
 
 **†** `min` and `max` accept mixed numeric types:\
 `min(0, 1n, -1)` evaluates to `0`,\
@@ -75,7 +70,7 @@ These may include:
 
 * [`Math.popCount`](https://vaibhavsagar.com/blog/2019/09/08/popcount/)
 * [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
-* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_exponentiation)
+* [`Math.modPow`](https://en.wikipedia.org/wiki/Modular_exponentiation)
 * [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
 * [`Math.clz64`](https://en.wikipedia.org/wiki/Find_first_set)
 * [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
@@ -112,7 +107,6 @@ are excluded from this proposal. These include:
 |`random`       | No conceptual integer-only analogue
 |`round`        | No known use case; `Math.round(3n / 2n) == 1` may be surprising
 |`sin`          | Transcendental
-|`sinh`         | Transcendental
 |`sinh`         | No known use case
 |`tan`          | Transcendental
 |`tanh`         | Transcendental
