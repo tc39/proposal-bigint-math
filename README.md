@@ -10,10 +10,12 @@ ECMAScript Stage-1 Proposal. J. S. Choi, 2021.
 (A [formal draft specification][specification] is available.)
 
 BigInts are important for a myriad of
-mathematical, financial, and scientific applications
-(such as in the Web Performance API),
+mathematical, financial, scientific, and timing applications
+(such as in the [Node.js `process.hrtime.bigint` API][hrtime]),
 and they have been therefore a valuable addition to JavaScript
 since their standardization in ES 2021.
+
+[hrtime]: https://nodejs.org/api/process.html#process_process_hrtime_bigint
 
 Several built-in `Math` functions
 would make sense with BigInts,
