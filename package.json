@@ -2,14 +2,14 @@
   "private": true,
   "name": "proposal-bigint-math",
   "description": "Draft specification for BigInt Math in JavaScript.",
+  "homepage": "https://tc39.github.io/proposal-bigint-math/",
   "author": "J. S. Choi <jschoi@jschoi.org> (https://jschoi.org/)",
   "license": "MIT",
   "repository": "github:js-choi/proposal-bigint-math",
   "scripts": {
-    "prespec": "mkdir -p out/",
-    "spec": "ecmarkup spec.html out/index.html --assets inline --contributors \"J. S. Choi, Ecma International\" --copyright true --title \"ES BigInt Math (2021)\" --status \"proposal\" --stage 1",
-    "prewatch": "npm run prespec",
-    "watch": "npm run spec -- --watch"
+    "prebuild": "mkdir -p dist",
+    "build": "ecmarkup --verbose spec.html dist/index.html --css dist/ecmarkup.css --js dist/ecmarkup.js",
+    "watch": "npm run build -- --watch"
   },
   "devDependencies": {
     "ecmarkup": "^9.2.0"
