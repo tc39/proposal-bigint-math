@@ -48,7 +48,7 @@ For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
 
 ## Philosophy
 The philosophy is to be **consistent with the precedents** already set by the language.
-These precedent include the following five rules:
+These precedents include the following five rules:
 
 1. BigInts and Numbers are *not* semantically interchangeable.
    It is important for the developer to reason about them differently.
