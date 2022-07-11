@@ -25,6 +25,7 @@ This proposal extends those functions’ behavior to accept BigInts:
 
 `abs`\
 `sign`\
+`sqrt`\
 `pow` \*
 
 `min` †\
