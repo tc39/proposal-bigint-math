@@ -85,20 +85,6 @@ contributors: J. S. Choi
 
           <tr>
             <td>
-              <ins>_T_::clz32(x)</ins>
-            </td>
-            <td>
-              <ins>`Math.clz32(x)`</ins>
-            </td>
-            <td><ins><emu-xref href="#sec-math.clz32" title></emu-xref></ins>
-            </td>
-            <td>
-              <ins>_T_</ins>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
               <ins>_T_::sign(x)</ins>
             </td>
             <td>
@@ -151,24 +137,6 @@ contributors: J. S. Choi
             </emu-alg>
           </emu-clause>
 
-          <emu-clause id="sec-numeric-types-number-clz32" type="numeric method">
-            <h1>
-              Number::clz32 (
-                _x_: a Number,
-              )
-            </h1>
-            <dl class="header">
-            </dl>
-            <emu-alg>
-              1. Let _n32_ be ? ToUint32(_x_).
-              1. Let _p_ be the number of leading zero bits in the unsigned 32-bit binary representation of _n32_.
-              1. Return 𝔽(_p_).
-            </emu-alg>
-            <emu-note>
-              <p>If _n_ is *+0*<sub>𝔽</sub> or _n_ is *-0*<sub>𝔽</sub>, this method returns *32*<sub>𝔽</sub>. If the most significant bit of the 32-bit binary encoding of _n_ is 1, this method returns *+0*<sub>𝔽</sub>.</p>
-            </emu-note>
-          </emu-clause>
-
           <emu-clause id="sec-numeric-types-number-sign" type="numeric method">
             <h1>
               Number::sign (
@@ -201,21 +169,6 @@ contributors: J. S. Choi
             </dl>
             <emu-alg>
               1. Return the BigInt value that represents abs(ℝ(_x_)).
-            </emu-alg>
-          </emu-clause>
-
-          <emu-clause id="sec-numeric-types-bigint-clz32" type="numeric method">
-            <h1>
-              BigInt::clz32 (
-                _x_: a BigInt,
-              )
-            </h1>
-            <dl class="header">
-            </dl>
-            <emu-alg>
-              1. Let _int_ be the mathematical value whose sign is the sign of _x_ and whose magnitude is abs(ℝ(_x_)).
-              1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
-              1. Return ℤ(_int32bit_).
             </emu-alg>
           </emu-clause>
 
@@ -273,28 +226,6 @@ contributors: J. S. Choi
           1. Let _n_ be ? ToNumeric(_x_).
           1. Let _T_ be Type(_n_).
           1. Return ! _T_::abs(_n_).
-        </emu-alg>
-        </ins>
-      </emu-clause>
-
-      <emu-clause id="sec-math.clz32">
-        <h1>Math.clz32 ( _x_ )</h1>
-        <p>When the `Math.clz32` method is called with argument _x_, the following steps are taken:</p>
-        <del class="block">
-        <emu-alg>
-          1. Let _n_ be ? ToUint32(_x_).
-          1. Let _p_ be the number of leading zero bits in the unsigned 32-bit binary representation of _n_.
-          1. Return 𝔽(_p_).
-        </emu-alg>
-        <emu-note>
-          <p>If _n_ is *+0*<sub>𝔽</sub> or _n_ is *-0*<sub>𝔽</sub>, this method returns *32*<sub>𝔽</sub>. If the most significant bit of the 32-bit binary encoding of _n_ is 1, this method returns *+0*<sub>𝔽</sub>.</p>
-        </emu-note>
-        </del>
-        <ins class="block">
-        <emu-alg>
-          1. Let _n_ be ? ToNumeric(_value_).
-          1. Let _T_ be Type(_n_).
-          1. Return ! _T_::clz32(_n_).
         </emu-alg>
         </ins>
       </emu-clause>

@@ -25,7 +25,6 @@ This proposal extends those functions’ behavior to accept BigInts:
 
 `abs`\
 `sign`\
-`clz32`\
 `pow` \*
 
 `min` †\
@@ -74,7 +73,6 @@ These may include:
 * [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
 * [`Math.modPow`](https://en.wikipedia.org/wiki/Modular_exponentiation)
 * [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
-* [`Math.clz64`](https://en.wikipedia.org/wiki/Find_first_set)
 * [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
 * [`Math.range`](https://github.com/tc39/proposal-Number.range)
 
@@ -94,6 +92,7 @@ are excluded from this proposal. These include:
 |`atanh`        | Transcendental
 |`cbrt`         | No known use case
 |`ceil`         | No known use case; `Math.ceil(3n / 2n) == 1` may be surprising
+|`clz32`        | No known use case
 |`cos`          | Transcendental
 |`cosh`         | Transcendental
 |`exp`          | Transcendental
