@@ -19,67 +19,57 @@ since their standardization in ES 2021.
 
 Several built-in `Math` functions
 would make sense with BigInts,
-yet they still do not support them;
-they only support regular floating-point JavaScript Numbers.
-This proposal extends those functions’ behavior to accept BigInts:
+yet JavaScript still does not have not support them.
+They only support regular floating-point JavaScript Numbers.
+This proposal adds the following functions
+to the BigInt object acting as a namespace:
 
-`abs`\
-`sign`\
-`sqrt`\
-`pow` \*
+* `BigInt.abs`
+* `BigInt.sign`
+* `BigInt.sqrt`
+* `BigInt.cbrt`
+* `BigInt.pow`
+* `BigInt.min`
+* `BigInt.max`
 
-`min` †\
-`max` †
-
-**\*** `pow` does not accept mixed types.
-`pow(4, 2n)` will throw a TypeError.
-
-**†** `min` and `max` accept mixed numeric types:\
-`min(0, 1n, -1)` evaluates to `0`,\
-and `max(0, 1n, -1)` evaluates to `1n`.\
-This is well defined because `<` is well defined over mixed numeric types;
-there is no loss of precision.
-
-When `Math.min` and `Math.max` receive values of different numeric types
-that nevertheless have equivalent mathematical values,
-then `min` prefers the leftmost value and `max` prefers the rightmost value.
-For example, `Math.min(0, 0n)` is `0` and `Math.max(0, 0n)` is `0n`.
-(See [issue #3][].)
+None of these functions accept any arguments other than BigInts.
 
 ## Philosophy
-The philosophy is to be **consistent with the precedents** already set by the language.
-These precedents include the following five rules:
+This proposal balances performance with precedent.
 
-1. BigInts and Numbers are *not* semantically interchangeable.
-   It is important for the developer to reason about them differently.
-2. But, for ease of use, *many* (but not all) numeric operations
-   (such as division `/` and exponentiation `**`)
-   are type overloaded to accept both Numbers and BigInts.
-3. These type-overloaded numeric operations
-   *cannot mix* Numbers and BigInts, with the exception of *comparison* operations.
-4. Some numeric operations are not overloaded (such as unary `+`).
-   The programmer has to remember which operations are overloaded and which ones are not.
-5. asm.js is still important, and operations on which it depends are not type overloaded.
+1. Monomorphic functions are much easier for engines to optimize
+   than polymorphic functions.
+2. BigInts and Numbers are not semantically interchangeable.
+   Developers should be aware when using BigInt versus Numbers to avoid errors.
+3. It is ergonomically desirable for BigInt math functions’ API
+   to be as consistent with existing number functions in Math as possible.
+4. Numbers and BigInts are primitives,
+   so math functions should be static functions like `BigInt.abs(v)`,
+   rather than prototype methods like `v.abs()`.
+   * This matches the precedent of `BigInt.asIntN` and `BigInt.asUintN`.
+   * This is unlike the proposed [Decimal128s][].
+     Decimal128s will be objects and thus should use prototype methods.)
 
-In this precedent, only syntactic operators are currently considered as math operations.
-We extend this precedent such that `Math` methods are also considered math operations.
+[Decimals]: https://github.com/tc39/proposal-decimal
 
 ## Vision
-This initial proposal overloads only a few first `Math` methods.
+This initial proposal adds only a few first `BigInt` methods.
 The vision is that this proposal would open up the way
-to new proposals that would further extend `Math` with type-overloaded methods.
-These may include:
+to new proposals for new BigInt math functions, like:
 
-* [`Math.popCount`](https://vaibhavsagar.com/blog/2019/09/08/popcount/)
-* [`Math.bitLength`](https://en.wikipedia.org/wiki/Bit-length)
-* [`Math.modPow`](https://en.wikipedia.org/wiki/Modular_exponentiation)
-* [`Math.gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
-* [`Math.modInv`](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
-* [`Math.range`](https://github.com/tc39/proposal-Number.range)
+* `BigInt.gcd(v)`: Greatest common divisor (GCD)
+* `BigInt.popCount(v)`: Population count
+* `BigInt.bitLength(v)`: Bit length, i.e., truncating log<sub>2</sub>
+* `BigInt.modPow(v, exponent, modulus)`: Modular exponentiation
+* `BigInt.modInverse(v, modulus)`: Modular multiplicative inverse
+* `BigInt.fromString(value, radix)`: Base-n string parsing
+* `BigInt.toByteArray(v, endian)`: Conversion to byte array
+* `BigInt.fromByteArray(bytes, endian)`: Conversion from byte array
+
+Some of these may also be appropriate for ordinary integer Numbers.
 
 ## Excluded `Math`
-Similarly to how some numeric operators are not overloaded (such as unary `+`),
-many `Math` functions that would not make sense with BigInts
+`Math` functions that would not make sense with BigInts
 are excluded from this proposal. These include:
 
 |`Math` method  | Exclusion reason
@@ -91,7 +81,6 @@ are excluded from this proposal. These include:
 |`atan`         | Transcendental
 |`atan2`        | Transcendental
 |`atanh`        | Transcendental
-|`cbrt`         | No known use case
 |`ceil`         | No known use case; `Math.ceil(3n / 2n) == 1` may be surprising
 |`clz32`        | No known use case
 |`cos`          | Transcendental
@@ -101,7 +90,7 @@ are excluded from this proposal. These include:
 |`floor`        | No known use case
 |`fround`       | Returns floating-point numbers by definition
 |`hypot`        | No known use case
-|`imul`         | No known use case; may complicated asm.js (see [issue #9][])
+|`imul`         | No known use case
 |`log`          | Transcendental
 |`log10`        | Truncation may be surprising; no known use case
 |`log2`         | Truncation may be surprising; deferred to future `bitLength` proposal
