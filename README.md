@@ -4,7 +4,7 @@ ECMAScript Stage-1 Proposal. J. S. Choi, 2021.
 * **[Specification][]**
 * **Babel plugin**: Not yet
 
-[specification]: http://jschoi.org/21/es-bigint-math/
+[specification]: https://tc39.es/proposal-bigint-math/
 
 ## Description
 (A [formal draft specification][specification] is available.)
