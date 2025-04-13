@@ -26,13 +26,16 @@ to the BigInt object acting as a namespace:
 
 * `BigInt.abs`
 * `BigInt.sign`
-* `BigInt.sqrt`
-* `BigInt.cbrt`
+* `BigInt.sqrt`*
+* `BigInt.cbrt`*
 * `BigInt.pow`
-* `BigInt.min`
-* `BigInt.max`
+* `BigInt.min`†
+* `BigInt.max`†
 
-None of these functions accept any arguments other than BigInts.
+* All of these functions return BigInts.
+* None of these functions accept any arguments other than BigInts.
+* * `sqrt` and `cbrt` truncate the result toward 0 into a BigInt.
+* † `min` and `max` require at least one argument.
 
 ## Philosophy
 This proposal balances performance with precedent.
