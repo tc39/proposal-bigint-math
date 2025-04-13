@@ -5,13 +5,14 @@
   "homepage": "https://tc39.github.io/proposal-bigint-math/",
   "author": "J. S. Choi <jschoi@jschoi.org> (https://jschoi.org/)",
   "license": "MIT",
-  "repository": "github:js-choi/proposal-bigint-math",
+  "repository": "github:tc39/proposal-bigint-math",
   "scripts": {
     "prebuild": "mkdir -p dist",
-    "build": "ecmarkup --verbose spec.html dist/index.html --css dist/ecmarkup.css --js dist/ecmarkup.js",
+    "build": "ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.html dist/index.html --assets-dir dist/",
     "watch": "npm run build -- --watch"
   },
   "devDependencies": {
-    "ecmarkup": "^9.2.0"
+    "@tc39/ecma262-biblio": "2.1.2462",
+    "ecmarkup": "^18.1.0"
   }
 }
