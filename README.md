@@ -21,17 +21,16 @@ Several built-in `Math` functions
 would make sense with BigInts,
 yet JavaScript still does not have not support them.
 They only support regular floating-point JavaScript Numbers.
-This proposal adds the following functions
-to the BigInt object acting as a namespace:
 
-* `BigInt.abs`
-* `BigInt.sign`
-* `BigInt.sqrt`*
-* `BigInt.cbrt`*
-* `BigInt.pow`
-* `BigInt.min`†
-* `BigInt.max`†
-
+* This proposal adds the following functions
+  to the BigInt object acting as a namespace:
+  * `BigInt.abs`
+  * `BigInt.sign`
+  * `BigInt.sqrt`*
+  * `BigInt.cbrt`*
+  * `BigInt.pow`
+  * `BigInt.min`†
+  * `BigInt.max`†
 * All of these functions return BigInts.
 * None of these functions accept any arguments other than BigInts.
 * * `sqrt` and `cbrt` truncate the result toward 0 into a BigInt.
