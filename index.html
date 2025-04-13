@@ -1,244 +1,139 @@
 <!doctype html>
-<head><meta charset="utf-8"><title>ES BigInt Math (2021)</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css"></head><body><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120">
+<head><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="ES BigInt Math (2025)"><meta property="og:description" content="Introduction
+  This is the formal specification for a proposed extension
+  of the `Math` JavaScript global object with BigInt operations.
+  It modifies the original ECMAScript specification with
+  several new or revised clauses. See the proposal's
+  explainer for the proposal's background, motiva"><title>ES BigInt Math (2025)</title><script src="ecmarkup.js?cache=PL3Y-6N3" defer=""></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css"><link rel="stylesheet" href="ecmarkup.css"><link rel="stylesheet" href="print.css" media="print"><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style></head><body><div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to <i>n</i>th pin</span><code>1-9</code></li>
+</ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
       <title>Menu</title>
       <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
-    </svg></div><div id="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins</div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#introduction" title="Introduction">Introduction</a></li><li><span class="item-toggle">◢</span><a href="#sec-ecmascript-data-types-and-values" title="ECMAScript Data Types and Values"><span class="secnum">1</span> ECMAScript Data Types and Values</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-ecmascript-language-types" title="ECMAScript Language Types"><span class="secnum">1.1</span> ECMAScript Language Types</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-numeric-types" title="Numeric Types"><span class="secnum">1.1.1</span> Numeric Types</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-ecmascript-language-types-number-type" title="The Number Type"><span class="secnum">1.1.1.1</span> The Number Type</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-number-abs" title="Number::abs ( x )"><span class="secnum">1.1.1.1.1</span> Number::abs ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-number-sign" title="Number::sign ( x )"><span class="secnum">1.1.1.1.2</span> Number::sign ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-number-sqrt" title="Number::sqrt ( x )"><span class="secnum">1.1.1.1.3</span> Number::sqrt ( <var>x</var> )</a></li><li><span class="item-toggle">◢</span><a href="#sec-ecmascript-language-types-bigint-type" title="The BigInt Type"><span class="secnum">1.1.1.1.4</span> The BigInt Type</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-bigint-abs" title="BigInt::abs ( x )"><span class="secnum">1.1.1.1.4.1</span> BigInt::abs ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-bigint-sign" title="BigInt::sign ( x )"><span class="secnum">1.1.1.1.4.2</span> BigInt::sign ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-numeric-types-bigint-sqrt" title="BigInt::sqrt ( x )"><span class="secnum">1.1.1.1.4.3</span> BigInt::sqrt ( <var>x</var> )</a></li></ol></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-numbers-and-dates" title="Numbers and Dates"><span class="secnum">1.2</span> Numbers and Dates</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-math-object" title="The Math Object"><span class="secnum">1.2.1</span> The Math Object</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-function-properties-of-the-math-object" title="Function Properties of the Math Object"><span class="secnum">1.2.1.1</span> Function Properties of the Math Object</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-math.abs" title="Math.abs ( x )"><span class="secnum">1.2.1.1.1</span> Math.abs ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-math.max" title="Math.max ( ...args )"><span class="secnum">1.2.1.1.2</span> Math.max ( ...<var>args</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-math.min" title="Math.min ( ...args )"><span class="secnum">1.2.1.1.3</span> Math.min ( ...<var>args</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-math.pow" title="Math.pow ( base, exponent )"><span class="secnum">1.2.1.1.4</span> Math.pow ( <var>base</var>, <var>exponent</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-math.sign" title="Math.sign ( x )"><span class="secnum">1.2.1.1.5</span> Math.sign ( <var>x</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-math.sqrt" title="Math.sqrt ( x )"><span class="secnum">1.2.1.1.6</span> Math.sqrt ( <var>x</var> )</a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 1 Draft / July 11, 2022</h1><h1 class="title">ES BigInt Math (2021)</h1>
-<script src="ecmarkup.js" defer=""></script>
-<link rel="stylesheet" href="ecmarkup.css">
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#introduction" title="Introduction">Introduction</a></li><li><span class="item-toggle">+</span><a href="#sec-properties-of-the-bigint-constructor" title="Properties of the BigInt Constructor"><span class="secnum">1</span> Properties of the BigInt Constructor</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-bigint.abs" title="BigInt.abs ( x )"><span class="secnum">1.1</span> <ins>BigInt.abs ( <var>x</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.asintn" title="BigInt.asIntN ( bits, bigint )"><span class="secnum">1.2</span> BigInt.asIntN ( <var>bits</var>, <var>bigint</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.asuintn" title="BigInt.asUintN ( bits, bigint )"><span class="secnum">1.3</span> BigInt.asUintN ( <var>bits</var>, <var>bigint</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.cbrt" title="BigInt.cbrt ( x )"><span class="secnum">1.4</span> <ins>BigInt.cbrt ( <var>x</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.max" title="BigInt.max ( firstArg, ...restArgs )"><span class="secnum">1.5</span> <ins>BigInt.max ( firstArg, ...<var>restArgs</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.min" title="BigInt.min ( firstArg, ...restArgs )"><span class="secnum">1.6</span> <ins>BigInt.min ( firstArg, ...<var>restArgs</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.pow" title="BigInt.pow ( base, exponent )"><span class="secnum">1.7</span> <ins>BigInt.pow ( <var>base</var>, <var>exponent</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.prototype" title="BigInt.prototype"><span class="secnum">1.8</span> BigInt.prototype</a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.sign" title="BigInt.sign ( x )"><span class="secnum">1.9</span> <ins>BigInt.sign ( <var>x</var> )</ins></a></li><li><span class="item-toggle-none"></span><a href="#sec-bigint.sqrt" title="BigInt.sqrt ( x )"><span class="secnum">1.10</span> <ins>BigInt.sqrt ( <var>x</var> )</ins></a></li></ol></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 1 Draft / April 13, 2025</h1><h1 class="title">ES BigInt Math (2025)</h1>
 
 <emu-intro id="introduction">
   <h1>Introduction</h1>
   <p>This is the formal specification for a proposed extension
   of the <code>Math</code> JavaScript <emu-xref href="#sec-global-object"><a href="https://tc39.es/ecma262/#sec-global-object">global object</a></emu-xref> with BigInt operations.
-  It modifies the original <a href="https://tc39.github.io/ecma262/">ECMAScript specification</a> with
-  several new or revised clauses. See <a href="https://github.com/js-choi/proposal-bigint-math/blob/main/README.md">the proposal's
+  It modifies the original <a href="https://tc39.es/ecma262/multipage/" data-print-href="">ECMAScript specification</a> with
+  several new or revised clauses. See <a href="https://github.com/tc39/proposal-bigint-math/blob/main/README.md" data-print-href="">the proposal's
   explainer</a> for the proposal's background, motivation, and usage examples.</p>
 </emu-intro>
 
-<emu-clause id="sec-ecmascript-data-types-and-values" aoid="Type">
-  <h1><span class="secnum">1</span> ECMAScript Data Types and Values</h1>
+<emu-clause id="sec-properties-of-the-bigint-constructor">
+  <h1><span class="secnum">1</span> Properties of the BigInt Constructor</h1>
+  <p>The BigInt <emu-xref href="#constructor"><a href="https://tc39.es/ecma262/#constructor">constructor</a></emu-xref>:</p>
+  <ul>
+    <li>has a <var class="field">[[Prototype]]</var> internal slot whose value is <emu-xref href="#sec-properties-of-the-function-prototype-object"><a href="https://tc39.es/ecma262/#sec-properties-of-the-function-prototype-object">%Function.prototype%</a></emu-xref>.</li>
+    <li>has the following properties:</li>
+  </ul>
 
-  <emu-clause id="sec-ecmascript-language-types">
-    <h1><span class="secnum">1.1</span> ECMAScript Language Types</h1>
+  <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">
+    <p>This section augments the <a href="https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-properties-of-the-bigint-constructor" data-print-href="">original
+    Numeric Types clause</a>.</p>
+  </div></emu-note>
 
-    <emu-clause id="sec-numeric-types">
-      <h1><span class="secnum">1.1.1</span> Numeric Types</h1>
+  <emu-clause id="sec-bigint.abs">
+    <h1><span class="secnum">1.1</span> <ins>BigInt.abs ( <var>x</var> )</ins></h1>
+    <p>This function returns the absolute value of <var>x</var> as a BigInt; the result has the same magnitude as <var>x</var> but has positive sign.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>x</var>).</li><li>Return the BigInt value that represents <emu-xref aoid="abs"><a href="https://tc39.es/ecma262/#eqn-abs">abs</a></emu-xref>(<emu-xref aoid="ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>x</var>)).</li></ol></emu-alg>
+  </emu-clause>
 
-      <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">
-        <p>This section augments the <a href="https://tc39.es/ecma262/#sec-numeric-types">original
-        Numeric Types clause</a>.</p>
-      </div></emu-note>
+  <emu-clause id="sec-bigint.asintn">
+    <h1><span class="secnum">1.2</span> BigInt.asIntN ( <var>bits</var>, <var>bigint</var> )</h1>
+    <p>This function performs the following steps when called:</p>
+    <emu-alg><ol><li>Set <var>bits</var> to ?&nbsp;<emu-xref aoid="ToIndex"><a href="https://tc39.es/ecma262/#sec-toindex">ToIndex</a></emu-xref>(<var>bits</var>).</li><li>Set <var>bigint</var> to ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>bigint</var>).</li><li>Let <var>mod</var> be <emu-xref aoid="ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>bigint</var>) <emu-xref aoid="modulo"><a href="https://tc39.es/ecma262/#eqn-modulo">modulo</a></emu-xref> 2<sup><var>bits</var></sup>.</li><li>If <var>mod</var> ≥ 2<sup><var>bits</var> - 1</sup>, return <emu-xref aoid="ℤ"><a href="https://tc39.es/ecma262/#ℤ">ℤ</a></emu-xref>(<var>mod</var> - 2<sup><var>bits</var></sup>); otherwise, return <emu-xref aoid="ℤ"><a href="https://tc39.es/ecma262/#ℤ">ℤ</a></emu-xref>(<var>mod</var>).</li></ol></emu-alg>
+  </emu-clause>
 
-      <p>ECMAScript has two built-in numeric types: Number and BigInt. In this specification, every numeric type <var>T</var> contains a multiplicative identity value denoted <var>T</var>::unit. The specification types also have the following <emu-xref href="#sec-algorithm-conventions-abstract-operations"><a href="https://tc39.es/ecma262/#sec-algorithm-conventions-abstract-operations">abstract operations</a></emu-xref>, likewise denoted <var>T</var>::<i>op</i> for a given operation with specification name <i>op</i>. All argument types are <var>T</var>. The "Result" column shows the return type, along with an indication if it is possible for some invocations of the operation to return an <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.es/ecma262/#sec-completion-record-specification-type">abrupt completion</a></emu-xref>.</p>
-      <emu-table id="table-numeric-type-ops" caption="Numeric Type Operations"><figure><figcaption>Table 1: Numeric Type Operations</figcaption>
-        <table>
-          <tbody>
-          <tr>
-            <th>
-              Invocation Synopsis
-            </th>
-            <th>
-              Example source
-            </th>
-            <th>
-              Invoked by the Evaluation semantics of ...
-            </th>
-            <th>
-              Result
-            </th>
-          </tr>
+  <emu-clause id="sec-bigint.asuintn">
+    <h1><span class="secnum">1.3</span> BigInt.asUintN ( <var>bits</var>, <var>bigint</var> )</h1>
+    <p>This function performs the following steps when called:</p>
+    <emu-alg><ol><li>Set <var>bits</var> to ?&nbsp;<emu-xref aoid="ToIndex"><a href="https://tc39.es/ecma262/#sec-toindex">ToIndex</a></emu-xref>(<var>bits</var>).</li><li>Set <var>bigint</var> to ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>bigint</var>).</li><li>Return <emu-xref aoid="ℤ"><a href="https://tc39.es/ecma262/#ℤ">ℤ</a></emu-xref>(<emu-xref aoid="ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>bigint</var>) <emu-xref aoid="modulo"><a href="https://tc39.es/ecma262/#eqn-modulo">modulo</a></emu-xref> 2<sup><var>bits</var></sup>).</li></ol></emu-alg>
+  </emu-clause>
 
-          <tr>
-            <td>
-              <ins><var>T</var>::<emu-xref aoid="abs"><a href="https://tc39.es/ecma262/#eqn-abs">abs</a></emu-xref>(x)</ins>
-            </td>
-            <td>
-              <ins><code>Math.abs(x)</code></ins>
-            </td>
-            <td><ins><emu-xref href="#sec-math.abs" title="" id="_ref_0"><a href="#sec-math.abs">Math.abs ( <var>x</var> )</a></emu-xref></ins>
-            </td>
-            <td>
-              <ins><var>T</var></ins>
-            </td>
-          </tr>
+  <emu-clause id="sec-bigint.cbrt">
+    <h1><span class="secnum">1.4</span> <ins>BigInt.cbrt ( <var>x</var> )</ins></h1>
+    <p>This function returns the cube root of <var>x</var> as a BigInt.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>x</var>).</li><li>Let <var>root</var> be the cube root of <emu-xref aoid="ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>n</var>).</li><li>Return <emu-xref aoid="ℤ"><a href="https://tc39.es/ecma262/#ℤ">ℤ</a></emu-xref>(<emu-xref aoid="truncate"><a href="https://tc39.es/ecma262/#eqn-truncate">truncate</a></emu-xref>(<var>root</var>)).</li></ol></emu-alg>
+  </emu-clause>
 
-          <tr>
-            <td>
-              <ins><var>T</var>::exponentiate(x)</ins>
-            </td>
-            <td>
-              <ins><code>Math.sign(x)</code></ins>
-            </td>
-            <td><ins><emu-xref href="#sec-math.sign" title="" id="_ref_1"><a href="#sec-math.sign">Math.sign ( <var>x</var> )</a></emu-xref></ins>
-            </td>
-            <td>
-              <ins><var>T</var></ins>
-            </td>
-          </tr>
+  <emu-clause id="sec-bigint.max">
+    <h1><span class="secnum">1.5</span> <ins>BigInt.max ( firstArg, ...<var>restArgs</var> )</ins></h1>
+    <p>Given one or more arguments, this function calls <emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref> on each of the arguments and returns the largest of the resulting values.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>firstCoerced</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>firstArg</var>).</li><li>Let <var>restCoerced</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each element <var>arg</var> of <var>restArgs</var>, do<ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>arg</var>).</li><li>Append <var>n</var> to <var>restCoerced</var>.</li></ol></li><li>Let <var>highest</var> be <var>firstCoerced</var>.</li><li>For each element <var>number</var> of <var>restCoerced</var>, do<ol><li>If <var>number</var> &gt; <var>highest</var>, set <var>highest</var> to <var>number</var>.</li></ol></li><li>Return <var>highest</var>.</li></ol></emu-alg>
+    <p>The <emu-val>"length"</emu-val> property of this function is <emu-val>2</emu-val><sub>𝔽</sub>.</p>
+  </emu-clause>
 
-          <tr>
-            <td>
-              <ins><var>T</var>::sign(x)</ins>
-            </td>
-            <td>
-              <ins><code>Math.sign(x)</code></ins>
-            </td>
-            <td><ins><emu-xref href="#sec-math.sign" title="" id="_ref_2"><a href="#sec-math.sign">Math.sign ( <var>x</var> )</a></emu-xref></ins>
-            </td>
-            <td>
-              <ins><var>T</var></ins>
-            </td>
-          </tr>
+  <emu-clause id="sec-bigint.min">
+    <h1><span class="secnum">1.6</span> <ins>BigInt.min ( firstArg, ...<var>restArgs</var> )</ins></h1>
+    <p>Given one or more arguments, this function calls <emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref> on each of the arguments and returns the smallest of the resulting values.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>firstCoerced</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>firstArg</var>).</li><li>Let <var>restCoerced</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each element <var>arg</var> of <var>restArgs</var>, do<ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>arg</var>).</li><li>Append <var>n</var> to <var>restCoerced</var>.</li></ol></li><li>Let <var>lowest</var> be <var>firstCoerced</var>.</li><li>For each element <var>number</var> of <var>restCoerced</var>, do<ol><li>If <var>number</var> &lt; <var>lowest</var>, set <var>lowest</var> to <var>number</var>.</li></ol></li><li>Return <var>lowest</var>.</li></ol></emu-alg>
+    <p>The <emu-val>"length"</emu-val> property of this function is <emu-val>2</emu-val><sub>𝔽</sub>.</p>
+  </emu-clause>
 
-          <tr>
-            <td>
-              <ins><var>T</var>::sqrt(x)</ins>
-            </td>
-            <td>
-              <ins><code>Math.sqrt(x)</code></ins>
-            </td>
-            <td><ins><emu-xref href="#sec-math.sqrt" title="" id="_ref_3"><a href="#sec-math.sqrt">Math.sqrt ( <var>x</var> )</a></emu-xref></ins>
-            </td>
-            <td>
-              <ins><var>T</var></ins>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </figure></emu-table>
+  <emu-clause id="sec-bigint.pow">
+    <h1><span class="secnum">1.7</span> <ins>BigInt.pow ( <var>base</var>, <var>exponent</var> )</ins></h1>
+    <p>This function performs the following steps when called:</p>
+    <emu-alg><ol><li>Set <var>base</var> to ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>base</var>).</li><li>Set <var>exponent</var> to ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>exponent</var>).</li><li>Return <emu-xref aoid="Number::exponentiate"><a href="https://tc39.es/ecma262/#sec-numeric-types-number-exponentiate">Number::exponentiate</a></emu-xref>(<var>base</var>, <var>exponent</var>).</li></ol></emu-alg>
+  </emu-clause>
 
-      <emu-clause id="sec-ecmascript-language-types-number-type">
-        <h1><span class="secnum">1.1.1.1</span> The Number Type</h1>
+  <emu-clause id="sec-bigint.prototype">
+    <h1><span class="secnum">1.8</span> BigInt.prototype</h1>
+    <p>The initial value of <code>BigInt.prototype</code> is the <emu-xref href="#sec-properties-of-the-bigint-prototype-object"><a href="https://tc39.es/ecma262/#sec-properties-of-the-bigint-prototype-object">BigInt prototype object</a></emu-xref>.</p>
+    <p>This property has the attributes { <var class="field">[[Writable]]</var>: <emu-val>false</emu-val>, <var class="field">[[Enumerable]]</var>: <emu-val>false</emu-val>, <var class="field">[[Configurable]]</var>: <emu-val>false</emu-val> }.</p>
+  </emu-clause>
 
-        <ins class="block">
-          <emu-clause id="sec-numeric-types-number-abs" type="numeric method" aoid="Number::abs">
-            <h1><span class="secnum">1.1.1.1.1</span> Number::abs ( <var>x</var> )</h1>
-            <p>The abstract operation Number::abs takes argument <var>x</var> (a Number). It performs the following steps when called:</p>
-            <emu-alg><ol><li>If <var>x</var> is <emu-val>NaN</emu-val>, return <emu-val>NaN</emu-val>.</li><li>If <var>x</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, return <emu-val>+0</emu-val><sub>𝔽</sub>.</li><li>If <var>x</var> is <emu-val>-∞</emu-val><sub>𝔽</sub>, return <emu-val>+∞</emu-val><sub>𝔽</sub>.</li><li>If <var>x</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return -<var>x</var>.</li><li>Return <var>x</var>.</li></ol></emu-alg>
-          </emu-clause>
+  <emu-clause id="sec-bigint.sign">
+    <h1><span class="secnum">1.9</span> <ins>BigInt.sign ( <var>x</var> )</ins></h1>
+    <p>This function returns the sign of <var>x</var> as a BigInt, indicating whether <var>x</var> is positive, negative, or zero.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> is <emu-val>0</emu-val><sub>ℤ</sub>, return <var>n</var>.</li><li>If <var>n</var> &lt; <emu-val>0</emu-val><sub>ℤ</sub>, return <emu-val>-1</emu-val><sub>ℤ</sub>.</li><li>Return <emu-val>1</emu-val><sub>ℤ</sub>.</li></ol></emu-alg>
+  </emu-clause>
 
-          <emu-clause id="sec-numeric-types-number-sign" type="numeric method" aoid="Number::sign">
-            <h1><span class="secnum">1.1.1.1.2</span> Number::sign ( <var>x</var> )</h1>
-            <p>The abstract operation Number::sign takes argument <var>x</var> (a Number). It performs the following steps when called:</p>
-            <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_4"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> is <emu-val>NaN</emu-val>, <var>n</var> is <emu-val>+0</emu-val><sub>𝔽</sub>, or <var>n</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, return <var>n</var>.</li><li>If <var>n</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return <emu-val>-1</emu-val><sub>𝔽</sub>.</li><li>Return <emu-val>1</emu-val><sub>𝔽</sub>.</li></ol></emu-alg>
-          </emu-clause>
-
-          <emu-clause id="sec-numeric-types-number-sqrt" type="numeric method" aoid="Number::sqrt">
-            <h1><span class="secnum">1.1.1.1.3</span> Number::sqrt ( <var>x</var> )</h1>
-            <p>The abstract operation Number::sqrt takes argument <var>x</var> (a Number). It performs the following steps when called:</p>
-            <emu-alg><ol><li>If <var>x</var> is <emu-val>NaN</emu-val>, <var>x</var> is <emu-val>+0</emu-val><sub>𝔽</sub>, <var>x</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, or <var>x</var> is <emu-val>+∞</emu-val><sub>𝔽</sub>, return <var>x</var>.</li><li>If <var>x</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return <emu-val>NaN</emu-val>.</li><li>Return an implementation-approximated value that represents the result of the square root of <emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>x</var>).</li></ol></emu-alg>
-          </emu-clause>
-
-      <emu-clause id="sec-ecmascript-language-types-bigint-type">
-        <h1><span class="secnum">1.1.1.1.4</span> The BigInt Type</h1>
-
-        <ins class="block">
-          <emu-clause id="sec-numeric-types-bigint-abs" type="numeric method" aoid="BigInt::abs">
-            <h1><span class="secnum">1.1.1.1.4.1</span> BigInt::abs ( <var>x</var> )</h1>
-            <p>The abstract operation BigInt::abs takes argument <var>x</var> (a BigInt). It performs the following steps when called:</p>
-            <emu-alg><ol><li>Return the BigInt value that represents <emu-xref aoid="abs"><a href="https://tc39.es/ecma262/#eqn-abs">abs</a></emu-xref>(<emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>x</var>)).</li></ol></emu-alg>
-          </emu-clause>
-
-          <emu-clause id="sec-numeric-types-bigint-sign" type="numeric method" aoid="BigInt::sign">
-            <h1><span class="secnum">1.1.1.1.4.2</span> BigInt::sign ( <var>x</var> )</h1>
-            <p>The abstract operation BigInt::sign takes argument <var>x</var> (a BigInt). It performs the following steps when called:</p>
-            <emu-alg><ol><li>If <var>x</var> is <emu-val>0</emu-val><sub>ℤ</sub>, return <var>x</var>.</li><li>If <var>x</var> &lt; <emu-val>0</emu-val><sub>ℤ</sub>, return <emu-val>-1</emu-val><sub>ℤ</sub>.</li><li>Return <emu-val>1</emu-val><sub>ℤ</sub>.</li></ol></emu-alg>
-          </emu-clause>
-
-          <emu-clause id="sec-numeric-types-bigint-sqrt" type="numeric method" aoid="BigInt::sqrt">
-            <h1><span class="secnum">1.1.1.1.4.3</span> BigInt::sqrt ( <var>x</var> )</h1>
-            <p>The abstract operation BigInt::sqrt takes argument <var>x</var> (a BigInt). It performs the following steps when called:</p>
-            <emu-alg><ol><li>If <var>x</var> &lt; <emu-val>0</emu-val><sub>ℤ</sub>, throw a <emu-val>RangeError</emu-val> exception.</li><li>Let <var>root</var> be the result of the square root of <emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>x</var>).</li><li>Return the BigInt value that represents <var>root</var> rounded towards 0 to the next <emu-xref href="#integer"><a href="https://tc39.es/ecma262/#integer">integer</a></emu-xref> value.</li></ol></emu-alg>
-          </emu-clause>
-        </ins>
-      </emu-clause>
-    </ins></emu-clause>
+  <emu-clause id="sec-bigint.sqrt">
+    <h1><span class="secnum">1.10</span> <ins>BigInt.sqrt ( <var>x</var> )</ins></h1>
+    <p>This function returns the square root of <var>x</var> as a BigInt.</p>
+    <p>It performs the following steps when called:</p>
+    <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToBigInt"><a href="https://tc39.es/ecma262/#sec-tobigint">ToBigInt</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> &lt; <emu-val>0</emu-val><sub>ℤ</sub>, throw a <emu-val>RangeError</emu-val> exception.</li><li>Let <var>root</var> be the square root of <emu-xref aoid="ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>n</var>).</li><li>Return <emu-xref aoid="ℤ"><a href="https://tc39.es/ecma262/#ℤ">ℤ</a></emu-xref>(<emu-xref aoid="truncate"><a href="https://tc39.es/ecma262/#eqn-truncate">truncate</a></emu-xref>(<var>root</var>)).</li></ol></emu-alg>
   </emu-clause>
 </emu-clause>
-
-<emu-clause id="sec-numbers-and-dates">
-  <h1><span class="secnum">1.2</span> Numbers and Dates</h1>
-
-  <emu-clause id="sec-math-object">
-    <h1><span class="secnum">1.2.1</span> The Math Object</h1>
-
-    <emu-clause id="sec-function-properties-of-the-math-object">
-      <h1><span class="secnum">1.2.1.1</span> Function Properties of the Math Object</h1>
-
-      <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">
-        <p>This section augments the <a href="https://tc39.es/ecma262/#sec-function-properties-of-the-math-object">original
-        Function Properties of the Math Object clause</a>.</p>
-      </div></emu-note>
-
-      <emu-clause id="sec-math.abs">
-        <h1><span class="secnum">1.2.1.1.1</span> Math.abs ( <var>x</var> )</h1>
-        <p>Returns the absolute value of <var>x</var>; the result has the same magnitude as <var>x</var> but has positive sign.</p>
-        <p>When the <code>Math.abs</code> method is called with argument <var>x</var>, the following steps are taken:</p>
-        <del class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_5"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> is <emu-val>NaN</emu-val>, return <emu-val>NaN</emu-val>.</li><li>If <var>n</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, return <emu-val>+0</emu-val><sub>𝔽</sub>.</li><li>If <var>n</var> is <emu-val>-∞</emu-val><sub>𝔽</sub>, return <emu-val>+∞</emu-val><sub>𝔽</sub>.</li><li>If <var>n</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return -<var>n</var>.</li><li>Return <var>n</var>.</li></ol></emu-alg>
-        </del>
-        <ins class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumeric" id="_ref_6"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref>(<var>x</var>).</li><li>Let <var>T</var> be <emu-xref aoid="Type" id="_ref_7"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>n</var>).</li><li>Return ! <var>T</var>::<emu-xref aoid="abs"><a href="https://tc39.es/ecma262/#eqn-abs">abs</a></emu-xref>(<var>n</var>).</li></ol></emu-alg>
-        </ins>
-      </emu-clause>
-
-      <emu-clause id="sec-math.max">
-        <h1><span class="secnum">1.2.1.1.2</span> Math.max ( ...<var>args</var> )</h1>
-        <p>Given zero or more arguments, calls <del><emu-xref aoid="ToNumber" id="_ref_8"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref></del><ins><emu-xref aoid="ToNumeric" id="_ref_9"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref></ins> on each of the arguments and returns the largest of the resulting values. <ins>When multiple arguments share the same <emu-xref href="#mathematical-value"><a href="https://tc39.es/ecma262/#mathematical-value">mathematical value</a></emu-xref>, then the latest argument is returned.</ins></p>
-        <p>When the <code>Math.max</code> method is called with zero or more arguments which form the rest parameter ...<var>args</var>, the following steps are taken:</p>
-        <emu-alg><ol><li>Let <var>coerced</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each element <var>arg</var> of <var>args</var>, do<ol><li>Let <var>n</var> be ? <del><emu-xref aoid="ToNumber" id="_ref_10"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref></del><ins><emu-xref aoid="ToNumeric" id="_ref_11"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref></ins>(<var>arg</var>).</li><li>Append <var>n</var> to <var>coerced</var>.</li></ol></li><li>Let <var>highest</var> be <emu-val>-∞</emu-val><sub>𝔽</sub>.</li><li>For each element <var>number</var> of <var>coerced</var>, do<ol><li>If <var>number</var> is <emu-val>NaN</emu-val>, return <emu-val>NaN</emu-val>.</li><li>If <var>number</var> is <emu-val>+0</emu-val><sub>𝔽</sub> and <var>highest</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, set <var>highest</var> to <emu-val>+0</emu-val><sub>𝔽</sub>.</li><li>If <del><var>number</var> &gt; <var>highest</var></del><ins><emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>number</var>) ≥ <emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>highest</var>)</ins>, set <var>highest</var> to <var>number</var>.</li></ol></li><li>Return <var>highest</var>.</li></ol></emu-alg>
-        <emu-note><span class="note">Note</span><div class="note-contents">
-          <p>The comparison of values to determine the largest value is done using the IsLessThan algorithm except that <emu-val>+0</emu-val><sub>𝔽</sub> is considered to be larger than <emu-val>-0</emu-val><sub>𝔽</sub>.</p>
-        </div></emu-note>
-        <p>The <emu-val>"length"</emu-val> property of the <code>max</code> method is <emu-val>2</emu-val><sub>𝔽</sub>.</p>
-      </emu-clause>
-
-      <emu-clause id="sec-math.min">
-        <h1><span class="secnum">1.2.1.1.3</span> Math.min ( ...<var>args</var> )</h1>
-        <p>Given zero or more arguments, calls <del><emu-xref aoid="ToNumber" id="_ref_12"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref></del><ins><emu-xref aoid="ToNumeric" id="_ref_13"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref></ins> on each of the arguments and returns the smallest of the resulting values. <ins>When multiple arguments share the same <emu-xref href="#mathematical-value"><a href="https://tc39.es/ecma262/#mathematical-value">mathematical value</a></emu-xref>, then the earliest argument is returned.</ins></p>
-        <p>When the <code>Math.min</code> method is called with zero or more arguments which form the rest parameter ...<var>args</var>, the following steps are taken:</p>
-        <emu-alg><ol><li>Let <var>coerced</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.es/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each element <var>arg</var> of <var>args</var>, do<ol><li>Let <var>n</var> be ? <del><emu-xref aoid="ToNumber" id="_ref_14"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref></del><ins><emu-xref aoid="ToNumeric" id="_ref_15"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref></ins>(<var>arg</var>).</li><li>Append <var>n</var> to <var>coerced</var>.</li></ol></li><li>Let <var>lowest</var> be <emu-val>+∞</emu-val><sub>𝔽</sub>.</li><li>For each element <var>number</var> of <var>coerced</var>, do<ol><li>If <var>number</var> is <emu-val>NaN</emu-val>, return <emu-val>NaN</emu-val>.</li><li>If <var>number</var> is <emu-val>-0</emu-val><sub>𝔽</sub> and <var>lowest</var> is <emu-val>+0</emu-val><sub>𝔽</sub>, set <var>lowest</var> to <emu-val>-0</emu-val><sub>𝔽</sub>.</li><li>If <del><var>number</var> &lt; <var>lowest</var></del><ins><emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>number</var>) &lt; <emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>lowest</var>)</ins>, set <var>lowest</var> to <var>number</var>.</li></ol></li><li>Return <var>lowest</var>.</li></ol></emu-alg>
-        <emu-note><span class="note">Note</span><div class="note-contents">
-          <p>The comparison of values to determine the largest value is done using the IsLessThan algorithm except that <emu-val>+0</emu-val><sub>𝔽</sub> is considered to be larger than <emu-val>-0</emu-val><sub>𝔽</sub>.</p>
-        </div></emu-note>
-        <p>The <emu-val>"length"</emu-val> property of the <code>min</code> method is <emu-val>2</emu-val><sub>𝔽</sub>.</p>
-      </emu-clause>
-
-      <emu-clause id="sec-math.pow">
-        <h1><span class="secnum">1.2.1.1.4</span> Math.pow ( <var>base</var>, <var>exponent</var> )</h1>
-        <p>When the <code>Math.pow</code> method is called with arguments <var>base</var> and <var>exponent</var>, the following steps are taken:</p>
-        <del class="block">
-        <emu-alg><ol><li>Set <var>base</var> to ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_16"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>base</var>).</li><li>Set <var>exponent</var> to ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_17"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>exponent</var>).</li><li>Return ! Number::exponentiate(<var>base</var>, <var>exponent</var>).</li></ol></emu-alg>
-        </del>
-        <ins class="block">
-        <emu-alg><ol><li>Set <var>base</var> to ?&nbsp;<emu-xref aoid="ToNumeric" id="_ref_18"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref>(<var>base</var>).</li><li>Set <var>exponent</var> to ?&nbsp;<emu-xref aoid="ToNumeric" id="_ref_19"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref>(<var>exponent</var>).</li><li>If <emu-xref aoid="Type" id="_ref_20"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>base</var>) is different from <emu-xref aoid="Type" id="_ref_21"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>exponent</var>), throw a <emu-val>TypeError</emu-val> exception.</li><li>Let <var>T</var> be <emu-xref aoid="Type" id="_ref_22"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>base</var>).</li><li>Return ! <var>T</var>::exponentiate(<var>base</var>, <var>exponent</var>).</li></ol></emu-alg>
-        </ins>
-      </emu-clause>
-
-      <emu-clause id="sec-math.sign">
-        <h1><span class="secnum">1.2.1.1.5</span> Math.sign ( <var>x</var> )</h1>
-        <p>Returns the sign of <var>x</var>, indicating whether <var>x</var> is positive, negative, or zero.</p>
-        <p>When the <code>Math.sign</code> method is called with argument <var>x</var>, the following steps are taken:</p>
-        <del class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_23"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> is <emu-val>NaN</emu-val>, <var>n</var> is <emu-val>+0</emu-val><sub>𝔽</sub>, or <var>n</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, return <var>n</var>.</li><li>If <var>n</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return <emu-val>-1</emu-val><sub>𝔽</sub>.</li><li>Return <emu-val>1</emu-val><sub>𝔽</sub>.</li></ol></emu-alg>
-        </del>
-        <ins class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumeric" id="_ref_24"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref>(<var>x</var>).</li><li>Let <var>T</var> be <emu-xref aoid="Type" id="_ref_25"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>n</var>).</li><li>Return ! <var>T</var>::sign(<var>n</var>).</li></ol></emu-alg>
-        </ins>
-      </emu-clause>
-
-      <emu-clause id="sec-math.sqrt">
-        <h1><span class="secnum">1.2.1.1.6</span> Math.sqrt ( <var>x</var> )</h1>
-        <p>Returns the square root of <var>x</var>.</p>
-        <p>When the <code>Math.sqrt</code> method is called with argument <var>x</var>, the following steps are taken:</p>
-        <del class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumber" id="_ref_26"><a href="https://tc39.es/ecma262/#sec-tonumber">ToNumber</a></emu-xref>(<var>x</var>).</li><li>If <var>n</var> is <emu-val>NaN</emu-val>, <var>n</var> is <emu-val>+0</emu-val><sub>𝔽</sub>, <var>n</var> is <emu-val>-0</emu-val><sub>𝔽</sub>, or <var>n</var> is <emu-val>+∞</emu-val><sub>𝔽</sub>, return <var>n</var>.</li><li>If <var>n</var> &lt; <emu-val>+0</emu-val><sub>𝔽</sub>, return <emu-val>NaN</emu-val>.</li><li>Return an implementation-approximated value representing the result of the square root of <emu-xref href="#ℝ"><a href="https://tc39.es/ecma262/#ℝ">ℝ</a></emu-xref>(<var>n</var>).</li></ol></emu-alg>
-        </del>
-        <ins class="block">
-        <emu-alg><ol><li>Let <var>n</var> be ?&nbsp;<emu-xref aoid="ToNumeric" id="_ref_27"><a href="https://tc39.es/ecma262/#sec-tonumeric">ToNumeric</a></emu-xref>(<var>x</var>).</li><li>Let <var>T</var> be <emu-xref aoid="Type" id="_ref_28"><a href="#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>n</var>).</li><li>Return ! <var>T</var>::sqrt(<var>n</var>).</li></ol></emu-alg>
-        </ins>
-      </emu-clause>
-    </emu-clause>
-  </emu-clause>
-</emu-clause>
-</emu-clause></div></body>
+</div></body>
