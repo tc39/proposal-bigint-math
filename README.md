@@ -50,7 +50,7 @@ This proposal balances performance with precedent.
    * This is unlike the proposed [Decimal128s][].
      Decimal128s will be objects and thus should use prototype methods.)
 
-[Decimals]: https://github.com/tc39/proposal-decimal
+[Decimal128s]: https://github.com/tc39/proposal-decimal
 
 ## Vision
 This initial proposal adds only a few first `BigInt` methods.
