@@ -1,5 +1,6 @@
 # BigInt `Math` for JavaScript
-ECMAScript Stage-1 Proposal. J. S. Choi, 2021.
+ECMAScript Stage 1 Proposal\
+J. S. Choi, 2021–2025
 
 * **[Specification][]**
 * **Babel plugin**: Not yet
