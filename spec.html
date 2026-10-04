@@ -52,9 +52,9 @@ contributors: J. S. Choi
     <p>Given one or more BigInt arguments, this function returns the largest of the resulting values.</p>
     <p>It performs the following steps when called:</p>
     <emu-alg>
-      1. If _x_ is not a BigInt, throw a *TypeError* exception.
-      1. Let _highest_ be _firstCoerced_.
-      1. For each element _number_ of _restCoerced_, do
+      1. If _firstArg_ is not a BigInt, throw a *TypeError* exception.
+      1. Let _highest_ be _firstArg_.
+      1. For each element _number_ of _restArgs_, do
         1. If _number_ is not a BigInt, throw a *TypeError* exception.
         1. If _number_ > _highest_, set _highest_ to _number_.
       1. Return _highest_.
@@ -63,11 +63,11 @@ contributors: J. S. Choi
   </emu-clause>
 
   <emu-clause id="sec-bigint.min">
-    <h1><ins>BigInt.min ( _firstArg_, ..._restArgs_ )</ins></h1>
+    <h1><ins>BigInt.min ( _firstCoerced_, ..._restCoerced_ )</ins></h1>
     <p>Given one or more arguments, this function calls ToBigInt on each of the arguments and returns the smallest of the resulting values.</p>
     <p>It performs the following steps when called:</p>
     <emu-alg>
-      1. If _x_ is not a BigInt, throw a *TypeError* exception.
+      1. If _firstCoerced_ is not a BigInt, throw a *TypeError* exception.
       1. Let _lowest_ be _firstCoerced_.
       1. For each element _number_ of _restCoerced_, do
         1. If _number_ is not a BigInt, throw a *TypeError* exception.
